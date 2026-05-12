@@ -1,0 +1,2538 @@
+[
+    {
+        "id": "9ad45550f96e0c2b",
+        "type": "tab",
+        "label": "CHADD PXPICS Irrigation v0.9",
+        "disabled": false,
+        "info": "Refactored Node-RED flow using Home Assistant helpers as source of truth."
+    },
+    {
+        "id": "d4a362d0888a38c1",
+        "type": "inject",
+        "z": "9ad45550f96e0c2b",
+        "name": "Every 3 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "180",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "lfg",
+        "payloadType": "str",
+        "x": 120,
+        "y": 40,
+        "wires": [
+            [
+                "a9e2882edd181654"
+            ]
+        ]
+    },
+    {
+        "id": "2f41b266b244c701",
+        "type": "inject",
+        "z": "9ad45550f96e0c2b",
+        "name": "Daily reset 00:05",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "once": false,
+        "onceDelay": "0",
+        "topic": "",
+        "payload": "reset",
+        "payloadType": "str",
+        "x": 120,
+        "y": 920,
+        "wires": [
+            [
+                "2888cf5653ca78d1"
+            ]
+        ]
+    },
+    {
+        "id": "2888cf5653ca78d1",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "Reset counters",
+        "func": "msg.payload={}; return msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "x": 300,
+        "y": 920,
+        "wires": [
+            [
+                "eef1ec6f142e39c7"
+            ]
+        ]
+    },
+    {
+        "id": "eef1ec6f142e39c7",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Reset fallback count",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_number.set_value",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_number.chadd_pxpics_fallback_shots_today"
+        ],
+        "labelId": [],
+        "data": "{\"value\": 0}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_number",
+        "service": "set_value",
+        "x": 500,
+        "y": 920,
+        "wires": [
+            [
+                "052bd26c19836650"
+            ]
+        ]
+    },
+    {
+        "id": "052bd26c19836650",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Reset irrigation count",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_number.set_value",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_number.chadd_pxpics_irrigation_count_today"
+        ],
+        "labelId": [],
+        "data": "{\"value\": 0}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_number",
+        "service": "set_value",
+        "x": 720,
+        "y": 920,
+        "wires": [
+            [
+                "59bc7ceb4dfc51db"
+            ]
+        ]
+    },
+    {
+        "id": "59bc7ceb4dfc51db",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Clear fallback flag",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_boolean.turn_off",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.chadd_pxpics_fallback_alert_enabled"
+        ],
+        "labelId": [],
+        "data": "{}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_boolean",
+        "service": "turn_off",
+        "x": 930,
+        "y": 920,
+        "wires": [
+            [
+                "d3eaf68e4d23f5ba"
+            ]
+        ]
+    },
+    {
+        "id": "d3eaf68e4d23f5ba",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Clear last reason",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_text.set_value",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_text.chadd_pxpics_last_blocker_reason"
+        ],
+        "labelId": [],
+        "data": "{\"value\": \"\"}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_text",
+        "service": "set_value",
+        "x": 1130,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d7d957cc07be759f",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Read VWC",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "sensor.sdi12sensor_greenhouse1_sdi12_vwc",
+        "state_type": "num",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.vwc",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 370,
+        "y": 100,
+        "wires": [
+            [
+                "4b6b7cc754cd922f",
+                "2c61e974ffa7d389"
+            ]
+        ]
+    },
+    {
+        "id": "2c61e974ffa7d389",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Read EC",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "sensor.sdi12sensor_greenhouse1_sdi12_raw_ec",
+        "state_type": "num",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.ec",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 360,
+        "y": 160,
+        "wires": [
+            [
+                "c97494c3d18fcde4"
+            ]
+        ]
+    },
+    {
+        "id": "c97494c3d18fcde4",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Read Temp",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "sensor.sdi12sensor_greenhouse1_sdi12_temperature",
+        "state_type": "num",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.temp",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 370,
+        "y": 220,
+        "wires": [
+            [
+                "bf5557a20871c0df"
+            ]
+        ]
+    },
+    {
+        "id": "bf5557a20871c0df",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Control mode",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "input_select.chadd_pxpics_control_mode",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.control_mode",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 380,
+        "y": 280,
+        "wires": [
+            [
+                "fe231ec414140774"
+            ]
+        ]
+    },
+    {
+        "id": "fe231ec414140774",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Primary control",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "input_select.chadd_pxpics_primary_control",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.primary_control",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 380,
+        "y": 340,
+        "wires": [
+            [
+                "8674454ef5363e31"
+            ]
+        ]
+    },
+    {
+        "id": "8674454ef5363e31",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Phase auto mode",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "input_boolean.chadd_pxpics_phase_auto_mode",
+        "state_type": "habool",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.phase_mode_auto",
+                "propertyType": "msg",
+                "value": "boolean",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 390,
+        "y": 400,
+        "wires": [
+            [
+                "a1ee63bc4f47fc5b"
+            ]
+        ]
+    },
+    {
+        "id": "a1ee63bc4f47fc5b",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Phase mode",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "input_select.chadd_pxpics_phase_mode",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.phase_mode",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 370,
+        "y": 460,
+        "wires": [
+            [
+                "1a44a4dc1f532a0e"
+            ]
+        ]
+    },
+    {
+        "id": "1a44a4dc1f532a0e",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Growth stage",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "input_select.chadd_pxpics_growth_stage",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.growth_stage",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 380,
+        "y": 520,
+        "wires": [
+            [
+                "89223c6b366f50b8"
+            ]
+        ]
+    },
+    {
+        "id": "89223c6b366f50b8",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Intent",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "input_number.chadd_pxpics_intent",
+        "state_type": "num",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.intent",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 350,
+        "y": 580,
+        "wires": [
+            [
+                "6617f2a12d488d8c"
+            ]
+        ]
+    },
+    {
+        "id": "6617f2a12d488d8c",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Intent profile index",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "input_number.chadd_pxpics_intent_profile_index",
+        "state_type": "num",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.intent_profile_index",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 390,
+        "y": 640,
+        "wires": [
+            [
+                "c7fd439dbd0aed50"
+            ]
+        ]
+    },
+    {
+        "id": "c7fd439dbd0aed50",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Targets pack",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "input_number.chadd_pxpics_dryback_target",
+        "state_type": "num",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.dryback_target",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 370,
+        "y": 700,
+        "wires": [
+            [
+                "8983c5a1289b64b3"
+            ]
+        ]
+    },
+    {
+        "id": "8983c5a1289b64b3",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "EC target",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "input_number.chadd_pxpics_ec_target",
+        "state_type": "num",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.ec_target",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 360,
+        "y": 760,
+        "wires": [
+            [
+                "48d237b375282b8f"
+            ]
+        ]
+    },
+    {
+        "id": "48d237b375282b8f",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Shot size",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "input_number.chadd_pxpics_shot_size_ml",
+        "state_type": "num",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.shot_size_ml",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 640,
+        "y": 100,
+        "wires": [
+            [
+                "88be7100796bf84d"
+            ]
+        ]
+    },
+    {
+        "id": "88be7100796bf84d",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Drippers",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "input_number.chadd_pxpics_dripper_count",
+        "state_type": "num",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.dripper_count",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 640,
+        "y": 160,
+        "wires": [
+            [
+                "4479e6ea8f1e5827"
+            ]
+        ]
+    },
+    {
+        "id": "4479e6ea8f1e5827",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Flowrate",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "input_number.chadd_pxpics_dripper_flowrate",
+        "state_type": "num",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.dripper_flowrate",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 640,
+        "y": 220,
+        "wires": [
+            [
+                "c88fa367a112dcb9"
+            ]
+        ]
+    },
+    {
+        "id": "c88fa367a112dcb9",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Field capacity",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "input_number.chadd_pxpics_field_capacity_estimate",
+        "state_type": "num",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.field_capacity_estimate",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 660,
+        "y": 280,
+        "wires": [
+            [
+                "895a0d310f31ce2b"
+            ]
+        ]
+    },
+    {
+        "id": "895a0d310f31ce2b",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "Manual override",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "entity_id": "input_boolean.chadd_pxpics_manual_override_enabled",
+        "state_type": "bool",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.manual_override_enabled",
+                "propertyType": "msg",
+                "value": "boolean",
+                "valueType": "entityState"
+            }
+        ],
+        "for": "",
+        "forType": "num",
+        "x": 660,
+        "y": 340,
+        "wires": [
+            [
+                "f819957fefc35823"
+            ]
+        ]
+    },
+    {
+        "id": "f819957fefc35823",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "Build helper refs",
+        "func": "msg.helpers = {\n    manual_override: 'input_boolean.chadd_pxpics_manual_override_enabled',\n    dry_run: 'input_boolean.chadd_pxpics_dry_run_mode',\n    skip_next: 'input_boolean.chadd_pxpics_skip_next_shot',\n    fallback_alert: 'input_boolean.chadd_pxpics_fallback_alert_enabled',\n    decision_log: 'input_boolean.chadd_pxpics_decision_log_enabled',\n    fallback_mode: 'input_select.chadd_pxpics_fallback_mode',\n    last_reason: 'input_text.chadd_pxpics_last_blocker_reason',\n    last_irrigation: 'input_datetime.chadd_pxpics_last_irrigation',\n    last_irrigation_day: 'input_datetime.chadd_pxpics_last_irrigation_of_day',\n    min_gap: 'input_number.chadd_pxpics_min_time_between_shots',\n    max_pump: 'input_number.chadd_pxpics_max_pump_time',\n    timeout: 'input_number.chadd_pxpics_sensor_timeout_minutes',\n    fallback_shots_today: 'input_number.chadd_pxpics_fallback_shots_today',\n    fallback_shots_limit: 'input_number.chadd_pxpics_fallback_shots_today_limit',\n    fallback_time: 'input_number.chadd_pxpics_fallback_pump_time',\n    irrigation_count_today: 'input_number.chadd_pxpics_irrigation_count_today',\n    max_irrigations_per_day: 'input_number.chadd_pxpics_max_irrigations_per_day',\n    sanity_vwc_min: 'input_number.chadd_pxpics_value_sanity_vwc_min',\n    sanity_vwc_max: 'input_number.chadd_pxpics_value_sanity_vwc_max',\n    sanity_ec_min: 'input_number.chadd_pxpics_value_sanity_ec_min',\n    sanity_ec_max: 'input_number.chadd_pxpics_value_sanity_ec_max',\n    mqtt_base: 'input_text.chadd_pxpics_mqtt_base_topic',\n    zone_name: 'input_text.chadd_pxpics_zone_name',\n    phase_auto_mode: 'input_boolean.chadd_pxpics_phase_auto_mode',\n    phase_mode: 'input_select.chadd_pxpics_phase_mode',\n    growth_stage: 'input_select.chadd_pxpics_growth_stage',\n    intent_profile_index: 'input_number.chadd_pxpics_intent_profile_index',\n    phase_profile_name: 'input_text.chadd_pxpics_current_profile_name',\n    gen_dryback: 'input_number.chadd_pxpics_gen_dryback_target',\n    veg_dryback: 'input_number.chadd_pxpics_veg_dryback_target',\n    gen_shot: 'input_number.chadd_pxpics_gen_shot_size_ml',\n    veg_shot: 'input_number.chadd_pxpics_veg_shot_size_ml',\n    gen_max_day: 'input_number.chadd_pxpics_gen_max_irrigations_per_day',\n    veg_max_day: 'input_number.chadd_pxpics_veg_max_irrigations_per_day',\n    p2_hold: 'input_number.chadd_pxpics_p2_hold_minutes',\n    window_start: 'input_number.chadd_pxpics_window_start_minutes',\n    window_end: 'input_number.chadd_pxpics_window_end_minutes',\n    vwc_fc_ref: 'input_number.chadd_pxpics_vwc_fc_ref'\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 100,
+        "wires": [
+            [
+                "5165f77880fd3097"
+            ]
+        ]
+    },
+    {
+        "id": "2494fbd5a49b5337",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "Load intent profile",
+        "func": "const p = msg.payload || {};\nconst intent = Number(p.intent || 1);\nconst idx = Math.min(10, Math.max(1, Number(p.intent_profile_index || intent)));\n\nconst profileMap = {\n  1: {\n    name: 'VEG 1',\n    group: 'veg',\n    steering: 'soft_veg',\n    dryback: 18,\n    drybackMin: 12,\n    drybackMax: 22,\n    shot: 90,\n    maxDay: 8,\n    p2: false,\n    p2Hold: 0,\n    vwcFloorPct: 78,\n    windowStart: 525,\n    windowEnd: 900,\n    windowEndMode: 'end_of_window'\n  },\n  2: {\n    name: 'VEG 2',\n    group: 'veg',\n    steering: 'soft_veg',\n    dryback: 22,\n    drybackMin: 16,\n    drybackMax: 26,\n    shot: 100,\n    maxDay: 8,\n    p2: false,\n    p2Hold: 0,\n    vwcFloorPct: 75,\n    windowStart: 525,\n    windowEnd: 900,\n    windowEndMode: 'end_of_window'\n  },\n  3: {\n    name: 'VEG 3',\n    group: 'veg',\n    steering: 'veg_stable',\n    dryback: 26,\n    drybackMin: 20,\n    drybackMax: 30,\n    shot: 110,\n    maxDay: 7,\n    p2: false,\n    p2Hold: 0,\n    vwcFloorPct: 72,\n    windowStart: 525,\n    windowEnd: 900,\n    windowEndMode: 'redefined_window'\n  },\n  4: {\n    name: 'VEG 4',\n    group: 'veg',\n    steering: 'veg_stable',\n    dryback: 30,\n    drybackMin: 24,\n    drybackMax: 34,\n    shot: 120,\n    maxDay: 7,\n    p2: false,\n    p2Hold: 0,\n    vwcFloorPct: 69,\n    windowStart: 525,\n    windowEnd: 900,\n    windowEndMode: 'redefined_window'\n  },\n  5: {\n    name: 'TRANS 5',\n    group: 'veg',\n    steering: 'transition',\n    dryback: 34,\n    drybackMin: 28,\n    drybackMax: 38,\n    shot: 130,\n    maxDay: 6,\n    p2: false,\n    p2Hold: 0,\n    vwcFloorPct: 66,\n    windowStart: 525,\n    windowEnd: 900,\n    windowEndMode: 'redefined_window'\n  },\n  6: {\n    name: 'FLOWER 6',\n    group: 'flower',\n    steering: 'light_gen',\n    dryback: 38,\n    drybackMin: 32,\n    drybackMax: 42,\n    shot: 140,\n    maxDay: 6,\n    p2: true,\n    p2Hold: 15,\n    vwcFloorPct: 63,\n    windowStart: 525,\n    windowEnd: 900,\n    windowEndMode: 'redefined_window'\n  },\n  7: {\n    name: 'FLOWER 7',\n    group: 'flower',\n    steering: 'light_gen',\n    dryback: 41,\n    drybackMin: 35,\n    drybackMax: 45,\n    shot: 150,\n    maxDay: 6,\n    p2: true,\n    p2Hold: 20,\n    vwcFloorPct: 60,\n    windowStart: 525,\n    windowEnd: 900,\n    windowEndMode: 'redefined_window'\n  },\n  8: {\n    name: 'FLOWER 8',\n    group: 'flower',\n    steering: 'gen_balanced',\n    dryback: 44,\n    drybackMin: 38,\n    drybackMax: 48,\n    shot: 160,\n    maxDay: 5,\n    p2: true,\n    p2Hold: 25,\n    vwcFloorPct: 57,\n    windowStart: 525,\n    windowEnd: 900,\n    windowEndMode: 'redefined_window'\n  },\n  9: {\n    name: 'FLOWER 9',\n    group: 'flower',\n    steering: 'gen_strong',\n    dryback: 47,\n    drybackMin: 41,\n    drybackMax: 49,\n    shot: 170,\n    maxDay: 5,\n    p2: true,\n    p2Hold: 30,\n    vwcFloorPct: 54,\n    windowStart: 525,\n    windowEnd: 900,\n    windowEndMode: 'redefined_window'\n  },\n  10: {\n    name: 'FLOWER 10',\n    group: 'flower',\n    steering: 'gen_max',\n    dryback: 49,\n    drybackMin: 43,\n    drybackMax: 49,\n    shot: 180,\n    maxDay: 5,\n    p2: true,\n    p2Hold: 35,\n    vwcFloorPct: 51,\n    windowStart: 525,\n    windowEnd: 900,\n    windowEndMode: 'end_of_window'\n  }\n};\n\nconst prof = profileMap[idx];\n\nmsg.profile = prof;\nmsg.payload = {\n  ...p,\n  profile: prof,\n  profile_name: prof.name,\n  phase_group: prof.group,\n  profile_steering: prof.steering,\n  profile_dryback: prof.dryback,\n  profile_dryback_min: prof.drybackMin,\n  profile_dryback_max: prof.drybackMax,\n  profile_shot: prof.shot,\n  profile_max_day: prof.maxDay,\n  profile_p2: prof.p2,\n  profile_p2_hold: prof.p2Hold,\n  profile_vwc_floor_pct: prof.vwcFloorPct,\n  profile_window_start: prof.windowStart,\n  profile_window_end: prof.windowEnd,\n  profile_window_mode: prof.windowEndMode,\n  dryback_target: prof.dryback,\n  dryback_target_min: prof.drybackMin,\n  dryback_target_max: prof.drybackMax,\n  shot_size_ml: prof.shot,\n  max_irrigations_per_day: prof.maxDay\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 220,
+        "wires": [
+            [
+                "f2bd8f995f863684"
+            ]
+        ]
+    },
+    {
+        "id": "f2bd8f995f863684",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Write profile name",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_text.set_value",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_text.chadd_pxpics_current_profile_name"
+        ],
+        "labelId": [],
+        "data": "{\"value\": \"{{payload.profile_name}}\"}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_text",
+        "service": "set_value",
+        "x": 910,
+        "y": 280,
+        "wires": [
+            [
+                "186f1be1ba89ab71"
+            ]
+        ]
+    },
+    {
+        "id": "64481d73677674fd",
+        "type": "switch",
+        "z": "9ad45550f96e0c2b",
+        "name": "Route",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "auto_water",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "fallback_water",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "manual",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "block",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 1190,
+        "y": 320,
+        "wires": [
+            [
+                "6bd351597aceba1d"
+            ],
+            [
+                "79adf94c996fe3a1"
+            ],
+            [
+                "db416d3d4f02b9f5"
+            ],
+            [
+                "67425ce1e0315916"
+            ]
+        ]
+    },
+    {
+        "id": "3e063aa7c3fed6d9",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Save shot size",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": true,
+        "action": "input_number.set_value",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_number.chadd_pxpics_shot_size_ml"
+        ],
+        "labelId": [],
+        "data": "{\"value\": {{haShotSize.value}}}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_number",
+        "service": "set_value",
+        "x": 3360,
+        "y": 440,
+        "wires": [
+            [
+                "e0a886f8dade2ccf"
+            ]
+        ]
+    },
+    {
+        "id": "760495af585f9b7b",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Update last irrigation",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_datetime.set_datetime",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_datetime.chadd_pxpics_last_irrigation"
+        ],
+        "labelId": [],
+        "data": "{\"date\":\"{{payload.date}}\",\"time\":\"{{payload.time}}\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_datetime",
+        "service": "set_datetime",
+        "x": 3380,
+        "y": 560,
+        "wires": [
+            [
+                "8349fec54dd9d30c"
+            ]
+        ]
+    },
+    {
+        "id": "95bec7a182a6bb13",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Update last irrigation day",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_datetime.set_datetime",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_datetime.chadd_pxpics_last_irrigation_of_day"
+        ],
+        "labelId": [],
+        "data": "{\"date\":\"{{payload.date}}\",\"time\":\"{{payload.time}}\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_datetime",
+        "service": "set_datetime",
+        "x": 3390,
+        "y": 680,
+        "wires": [
+            [
+                "e305628ffb0aaf6c"
+            ]
+        ]
+    },
+    {
+        "id": "292d80c9d6723b0e",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Inc irrigation count",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_number.set_value",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_number.chadd_pxpics_irrigation_count_today"
+        ],
+        "labelId": [],
+        "data": "{\"value\": {{payload.value}}}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_number",
+        "service": "set_value",
+        "x": 3370,
+        "y": 860,
+        "wires": [
+            [
+                "2430581fef5035f5"
+            ]
+        ]
+    },
+    {
+        "id": "2430581fef5035f5",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Clear fallback after success",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_boolean.turn_off",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.chadd_pxpics_fallback_alert_enabled"
+        ],
+        "labelId": [],
+        "data": "{}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_boolean",
+        "service": "turn_off",
+        "x": 3400,
+        "y": 920,
+        "wires": [
+            [
+                "ec02f625cea7bf16"
+            ]
+        ]
+    },
+    {
+        "id": "a1e9d188daf3da1d",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Write fallback reason",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_text.set_value",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_text.chadd_pxpics_last_blocker_reason"
+        ],
+        "labelId": [],
+        "data": "{\"value\": \"fallback_mode_active\" }",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_text",
+        "service": "set_value",
+        "x": 1840,
+        "y": 360,
+        "wires": [
+            [
+                "f133871c415831b0"
+            ]
+        ]
+    },
+    {
+        "id": "70aaa591c2d6d057",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Inc fallback count",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_number.set_value",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_number.chadd_pxpics_fallback_shots_today"
+        ],
+        "labelId": [],
+        "data": "{\"value\": {{payload.value}}}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_number",
+        "service": "set_value",
+        "x": 2270,
+        "y": 620,
+        "wires": [
+            [
+                "1f59367a198b34c5"
+            ]
+        ]
+    },
+    {
+        "id": "1f59367a198b34c5",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Fallback alert on",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_boolean.turn_on",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.chadd_pxpics_fallback_alert_enabled"
+        ],
+        "labelId": [],
+        "data": "{}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_boolean",
+        "service": "turn_on",
+        "x": 2270,
+        "y": 680,
+        "wires": [
+            [
+                "f1edcf0f72142dea"
+            ]
+        ]
+    },
+    {
+        "id": "f1edcf0f72142dea",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "Build MQTT fallback log",
+        "func": "const p = flow.get('lastDecision') || (msg.payload || {});\nmsg.topic = `${p.topicBase || 'grow/CHADD_PXPICS'}/${p.zone || 'zone_1'}/fallback`;\nmsg.payload = JSON.stringify({\n  reason: p.reason,\n  mode: p.mode,\n  action: p.action,\n  ts: p.now,\n  fallbackCountToday: p.fallbackCountToday,\n  fallbackShotsTodayLimit: p.fallbackShotsTodayLimit,\n  profileName: p.profileName\n});\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2930,
+        "y": 1060,
+        "wires": [
+            [
+                "b70fc46ede5742cc"
+            ]
+        ]
+    },
+    {
+        "id": "687c1e5bd25bffbc",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Manual branch note",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_text.set_value",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_text.chadd_pxpics_last_blocker_reason"
+        ],
+        "labelId": [],
+        "data": "{\"value\": \"manual_mode\" }",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_text",
+        "service": "set_value",
+        "x": 1820,
+        "y": 740,
+        "wires": [
+            [
+                "c49a107e9216cf67"
+            ]
+        ]
+    },
+    {
+        "id": "861af86b33db5084",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Manual lockout stamp",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_datetime.set_datetime",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_datetime.chadd_pxpics_last_irrigation"
+        ],
+        "labelId": [],
+        "data": "{\"date\":\"{{payload.date}}\",\"time\":\"{{payload.time}}\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_datetime",
+        "service": "set_datetime",
+        "x": 1820,
+        "y": 860,
+        "wires": [
+            [
+                "889abbaa6abb82d7"
+            ]
+        ]
+    },
+    {
+        "id": "094cac0e4653ece2",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Manual day stamp",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_datetime.set_datetime",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_datetime.chadd_pxpics_last_irrigation_of_day"
+        ],
+        "labelId": [],
+        "data": "{\"date\":\"{{payload.date}}\",\"time\":\"{{payload.time}}\"}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_datetime",
+        "service": "set_datetime",
+        "x": 1810,
+        "y": 980,
+        "wires": [
+            [
+                "aa1940202412a3c6"
+            ]
+        ]
+    },
+    {
+        "id": "660e181a5746841c",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Inc irrigation count manual",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_number.set_value",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_number.chadd_pxpics_irrigation_count_today"
+        ],
+        "labelId": [],
+        "data": "{\"value\": {{payload.value}}}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_number",
+        "service": "set_value",
+        "x": 1840,
+        "y": 1160,
+        "wires": [
+            [
+                "2bd9ca48ba804ee6"
+            ]
+        ]
+    },
+    {
+        "id": "20225ed6275e3d66",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Write block reason",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_text.set_value",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_text.chadd_pxpics_last_blocker_reason"
+        ],
+        "labelId": [],
+        "data": "{\"value\": \"{{payload.reason}}\"}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_text",
+        "service": "set_value",
+        "x": 1410,
+        "y": 600,
+        "wires": [
+            [
+                "2bd9ca48ba804ee6",
+                "fccf364343061298"
+            ]
+        ]
+    },
+    {
+        "id": "2bd9ca48ba804ee6",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "build mqtt log",
+        "func": "const p = msg.payload || {};\nmsg.topic = `${p.topicBase || 'grow/CHADD_PXPICS'}/${p.zone || 'zone_1'}/context`;\nmsg.payload = JSON.stringify({\n  vwc: p.vwc,\n  ec: p.ec,\n  drybackPct: p.drybackPct,\n  drybackTarget: p.drybackTarget,\n  intent: p.intent,\n  mode: p.mode,\n  primary: p.primary,\n  fallback: p.fallback,\n  phaseAuto: p.phaseAuto,\n  phaseMode: p.phaseMode,\n  growthStage: p.growthStage,\n  profileName: p.profileName,\n  ts: p.now\n});\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2900,
+        "y": 1160,
+        "wires": [
+            [
+                "b70fc46ede5742cc"
+            ]
+        ]
+    },
+    {
+        "id": "f0d225ae8a8c9b56",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "Build MQTT log",
+        "func": "const p = flow.get('lastDecision') || (msg.payload || {});\nmsg.topic = `${p.topicBase || 'grow/CHADD_PXPICS'}/${p.zone || 'zone_1'}/decision`;\nmsg.payload = JSON.stringify({\n  action: p.action,\n  reason: p.reason,\n  dryRun: p.dryRun,\n  mode: p.mode,\n  primary: p.primary,\n  fallback: p.fallback,\n  phaseAuto: p.phaseAuto,\n  phaseMode: p.phaseMode,\n  growthStage: p.growthStage,\n  profileName: p.profileName,\n  vwc: p.vwc,\n  ec: p.ec,\n  drybackPct: p.drybackPct,\n  shotSize: p.shotSize,\n  pumpTime: p.pumpTime,\n  ts: p.now,\n  fallbackCountToday: p.fallbackCountToday,\n  fallbackShotsTodayLimit: p.fallbackShotsTodayLimit,\n  irrCountToday: p.irrCountToday,\n  maxIrrPerDay: p.maxIrrPerDay\n});\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3340,
+        "y": 180,
+        "wires": [
+            [
+                "ae25938ec5ac193d",
+                "b70fc46ede5742cc"
+            ]
+        ]
+    },
+    {
+        "id": "b70fc46ede5742cc",
+        "type": "mqtt out",
+        "z": "9ad45550f96e0c2b",
+        "name": "Publish decision",
+        "topic": "",
+        "qos": "0",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "681e0473719c2832",
+        "x": 3650,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "76e5ebd90daa6b50",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "convert",
+        "func": "msg.payload = { value:\nmsg.payload.action };\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1620,
+        "y": 360,
+        "wires": [
+            [
+                "a1e9d188daf3da1d"
+            ]
+        ]
+    },
+    {
+        "id": "86c449e594c30143",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "fallback-counter",
+        "func": "const p = msg.payload || {};\nconst current = Number(p.state ?? p ?? 0);\n\nmsg.payload = {\n  value: current + 1\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2260,
+        "y": 560,
+        "wires": [
+            [
+                "70aaa591c2d6d057"
+            ]
+        ]
+    },
+    {
+        "id": "1acf662b10a79f51",
+        "type": "inject",
+        "z": "9ad45550f96e0c2b",
+        "d": true,
+        "name": "test_mode vwc ec ",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{   \"test_mode\": true,   \"test_vwc\": 57,   \"test_ec\": 1100,   \"test_temp\": 18,   \"intent\": 5,   \"intent_profile_index\": 5,   \"control_mode\": \"auto\",   \"primary_control\": \"dryback_first\",   \"fallback_mode\": \"timed_survival\",   \"dryback_target\": 34,   \"dryback_target_min\": 28,   \"dryback_target_max\": 38,   \"vwc_fc_ref\": 80,   \"dripper_count\": 8,   \"dripper_flowrate\": 0.556,   \"max_pump\": 60,   \"min_gap\": 30,   \"fallback_shots_today\": 0,   \"fallback_shots_limit\": 2,   \"fallback_time\": 10,   \"irrigation_count_today\": 0,   \"max_irrigations_per_day\": 6,   \"timeout\": 15,   \"sanity_vwc_min\": 10,   \"sanity_vwc_max\": 90,   \"sanity_ec_min\": 500,   \"sanity_ec_max\": 6000,   \"profile\": {     \"name\": \"TRANS 5\",     \"group\": \"veg\",     \"steering\": \"transition\",     \"dryback\": 34,     \"drybackMin\": 28,     \"drybackMax\": 38,     \"shot\": 130,     \"maxDay\": 6,     \"p2\": false,     \"p2Hold\": 0,     \"vwcFloorPct\": 66,     \"windowStart\": 525,     \"windowEnd\": 900,     \"windowEndMode\": \"redefined_window\"   } }",
+        "payloadType": "json",
+        "x": 800,
+        "y": 640,
+        "wires": [
+            []
+        ],
+        "info": "{\r\n  \"test_mode\": true,\r\n  \"test_vwc\": 56,\r\n  \"test_ec\": 1100,\r\n  \"test_temp\": 18,\r\n  \"intent\": 5,\r\n  \"intent_profile_index\": 5,\r\n  \"control_mode\": \"auto\",\r\n  \"primary_control\": \"dryback_first\",\r\n  \"fallback_mode\": \"timed_survival\",\r\n  \"dryback_target\": 34,\r\n  \"dryback_target_min\": 28,\r\n  \"dryback_target_max\": 38,\r\n  \"vwc_fc_ref\": 80,\r\n  \"dripper_count\": 8,\r\n  \"dripper_flowrate\": 0.556,\r\n  \"max_pump\": 60,\r\n  \"min_gap\": 30,\r\n  \"fallback_shots_today\": 0,\r\n  \"fallback_shots_limit\": 2,\r\n  \"fallback_time\": 10,\r\n  \"irrigation_count_today\": 0,\r\n  \"max_irrigations_per_day\": 6,\r\n  \"timeout\": 15,\r\n  \"sanity_vwc_min\": 10,\r\n  \"sanity_vwc_max\": 90,\r\n  \"sanity_ec_min\": 500,\r\n  \"sanity_ec_max\": 6000,\r\n  \"profile\": {\r\n    \"name\": \"TRANS 5\",\r\n    \"group\": \"veg\",\r\n    \"steering\": \"transition\",\r\n    \"dryback\": 34,\r\n    \"drybackMin\": 28,\r\n    \"drybackMax\": 38,\r\n    \"shot\": 130,\r\n    \"maxDay\": 6,\r\n    \"p2\": false,\r\n    \"p2Hold\": 0,\r\n    \"vwcFloorPct\": 66,\r\n    \"windowStart\": 525,\r\n    \"windowEnd\": 900,\r\n    \"windowEndMode\": \"redefined_window\"\r\n  }\r\n}"
+    },
+    {
+        "id": "bd6a6bfb10740766",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "convert",
+        "func": "const p = msg.payload || {};\nconst core = p.coreDataObj || {};\nconst shot = Number (core.shotSize)\n\nif (!Number.isFinite(shot)) { \n    node.error(\"missingshot\", msg);\n    return null;\n}\n\nmsg.haShotSize = {\n    value: shot };\n    \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3340,
+        "y": 380,
+        "wires": [
+            [
+                "3e063aa7c3fed6d9"
+            ]
+        ]
+    },
+    {
+        "id": "e0a886f8dade2ccf",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "getdata",
+        "func": "const d = new Date();\nmsg.payload = {\n  date: d.toISOString().slice(0, 10),\n  time: d.toTimeString().slice(0, 8)\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3340,
+        "y": 500,
+        "wires": [
+            [
+                "760495af585f9b7b"
+            ]
+        ]
+    },
+    {
+        "id": "8349fec54dd9d30c",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "getdata",
+        "func": "const d = new Date();\nmsg.payload = {\n  date: d.toISOString().slice(0, 10),\n  time: d.toTimeString().slice(0, 8)\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3340,
+        "y": 620,
+        "wires": [
+            [
+                "95bec7a182a6bb13"
+            ]
+        ]
+    },
+    {
+        "id": "71d0bbe9b9cd5a2d",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "counter",
+        "func": "const p = msg.payload || {};\nconst current = Number(p.state ?? p ?? 0);\n\nmsg.payload = {\n  value: current + 1\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3340,
+        "y": 800,
+        "wires": [
+            [
+                "292d80c9d6723b0e"
+            ]
+        ]
+    },
+    {
+        "id": "e305628ffb0aaf6c",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "irrState",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_number.chadd_pxpics_irrigation_count_today",
+        "state_type": "str",
+        "blockInputOverrides": true,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 3340,
+        "y": 740,
+        "wires": [
+            [
+                "71d0bbe9b9cd5a2d"
+            ]
+        ]
+    },
+    {
+        "id": "f133871c415831b0",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "fallbackState",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_number.chadd_pxpics_fallback_shots_today",
+        "state_type": "str",
+        "blockInputOverrides": true,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 2250,
+        "y": 500,
+        "wires": [
+            [
+                "86c449e594c30143"
+            ]
+        ]
+    },
+    {
+        "id": "ae25938ec5ac193d",
+        "type": "debug",
+        "z": "9ad45550f96e0c2b",
+        "name": "finale",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3570,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "6bd351597aceba1d",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "auto_water",
+        "func": "flow.set('lastDecision', JSON.parse(JSON.stringify(msg.payload || {})));\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1390,
+        "y": 120,
+        "wires": [
+            [
+                "f6d54c09b65112f8"
+            ]
+        ]
+    },
+    {
+        "id": "79adf94c996fe3a1",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "fallback",
+        "func": "flow.set('lastDecision', JSON.parse(JSON.stringify(msg.payload || {})));\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1380,
+        "y": 240,
+        "wires": [
+            [
+                "76e5ebd90daa6b50"
+            ]
+        ]
+    },
+    {
+        "id": "92ce663444e3db77",
+        "type": "inject",
+        "z": "9ad45550f96e0c2b",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"action\":\"manual_run\",\"control_mode\":\"manual\"}",
+        "payloadType": "json",
+        "x": 750,
+        "y": 560,
+        "wires": [
+            [
+                "ce2e797be72be0bd"
+            ]
+        ]
+    },
+    {
+        "id": "ce2e797be72be0bd",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "d": true,
+        "name": "manual_mode",
+        "func": "msg.payload = {\n  control_mode: \"manual\",\n  action: \"manual\",\n  reason: \"manual_run_now\",\n  now: Date.now(),\n  topicBase: \"grow/CHADD_PXPICS\",\n  zone: \"zone_1\"\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3501aa114d1ca78a",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "convert",
+        "func": "msg.payload = { value:\nmsg.payload.action };\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1620,
+        "y": 420,
+        "wires": [
+            [
+                "687c1e5bd25bffbc"
+            ]
+        ]
+    },
+    {
+        "id": "c49a107e9216cf67",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "gatherdata",
+        "func": "const d = new Date();\nmsg.payload = {\n  date: d.toISOString().slice(0, 10),\n  time: d.toTimeString().slice(0, 8)\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1790,
+        "y": 800,
+        "wires": [
+            [
+                "861af86b33db5084"
+            ]
+        ]
+    },
+    {
+        "id": "889abbaa6abb82d7",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "gatherdata",
+        "func": "const d = new Date();\nmsg.payload = {\n  date: d.toISOString().slice(0, 10),\n  time: d.toTimeString().slice(0, 8)\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1790,
+        "y": 920,
+        "wires": [
+            [
+                "094cac0e4653ece2"
+            ]
+        ]
+    },
+    {
+        "id": "4e2eb11761601b4d",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "counter",
+        "func": "const p = msg.payload || {};\nconst current = Number(p.state ?? p ?? 0);\n\nmsg.payload = {\n  value: current + 1\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1780,
+        "y": 1100,
+        "wires": [
+            [
+                "660e181a5746841c"
+            ]
+        ]
+    },
+    {
+        "id": "aa1940202412a3c6",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "irrState",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_number.chadd_pxpics_irrigation_count_today",
+        "state_type": "str",
+        "blockInputOverrides": true,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 1780,
+        "y": 1040,
+        "wires": [
+            [
+                "4e2eb11761601b4d"
+            ]
+        ]
+    },
+    {
+        "id": "db416d3d4f02b9f5",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "manual",
+        "func": "flow.set('lastDecision', JSON.parse(JSON.stringify(msg.payload || {})));\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1380,
+        "y": 400,
+        "wires": [
+            [
+                "3501aa114d1ca78a",
+                "f6d54c09b65112f8"
+            ]
+        ]
+    },
+    {
+        "id": "f6d54c09b65112f8",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "Pump gate",
+        "func": "const p = msg.payload || {};\nconst now = Date.now();\n\nconst pumpTime = Math.max(0, Math.round(Number(p.pumpTime ?? 0)));\nconst maxPump = Math.max(1, Math.round(Number(p.maxPump ?? 60)));\nconst finalPumpTime = Math.min(pumpTime, maxPump);\n\nif (finalPumpTime <= 0) {\n  msg.payload = {\n    ...p,\n    action: 'block',\n    reason: 'invalid_pump_time',\n    pumpTime: finalPumpTime,\n    maxPump,\n    now\n  };\n  return [null, msg];\n}\n\nmsg.payload = {\n  ...p,\n  action: p.action || 'auto_water',\n  reason: p.reason || '',\n  pumpTime: finalPumpTime,\n  maxPump,\n  pumpStartedAt: now,\n  lastIrr: now,\n  last_irrigation_ms: now\n};\n\nreturn [msg, null];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1630,
+        "y": 120,
+        "wires": [
+            [
+                "5ed7439983d34cd5",
+                "ec02f625cea7bf16"
+            ]
+        ]
+    },
+    {
+        "id": "cf0ce750a3d06ecd",
+        "type": "switch",
+        "z": "9ad45550f96e0c2b",
+        "name": "Dry run?",
+        "property": "payload.dryRun",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 2480,
+        "y": 140,
+        "wires": [
+            [
+                "3ea8c7c6166f49d1"
+            ],
+            [
+                "f1e09d24448d02f1",
+                "7d485657e73484e1"
+            ]
+        ]
+    },
+    {
+        "id": "3ea8c7c6166f49d1",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Dry-run log",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "input_text.set_value",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_text.chadd_pxpics_last_blocker_reason"
+        ],
+        "labelId": [],
+        "data": "{\"value\": \"dry_run_mode\" }",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "input_text",
+        "service": "set_value",
+        "x": 2670,
+        "y": 40,
+        "wires": [
+            [
+                "d4a203e7bc236a92"
+            ]
+        ]
+    },
+    {
+        "id": "a759596d42b43983",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Pump ON",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "switch.turn_on",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "switch.shellyplusplugs_e86beae84ce0"
+        ],
+        "labelId": [],
+        "data": "{}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "switch",
+        "service": "turn_on",
+        "x": 2820,
+        "y": 240,
+        "wires": [
+            [
+                "222ae98051f2f096"
+            ]
+        ]
+    },
+    {
+        "id": "961c58e6e748b14c",
+        "type": "delay",
+        "z": "9ad45550f96e0c2b",
+        "name": "Hold pump",
+        "pauseType": "delayv",
+        "timeout": "20",
+        "timeoutUnits": "seconds",
+        "rate": "",
+        "nbRateUnits": "",
+        "randomFirst": "",
+        "randomLast": "",
+        "randomUnits": "seconds",
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2830,
+        "y": 360,
+        "wires": [
+            [
+                "5652324ad08309e0"
+            ]
+        ]
+    },
+    {
+        "id": "01c0fbfc11f88897",
+        "type": "api-call-service",
+        "z": "9ad45550f96e0c2b",
+        "name": "Pump OFF",
+        "server": "859e5524a789cd87",
+        "version": 7,
+        "debugenabled": false,
+        "action": "switch.turn_off",
+        "floorId": [],
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "switch.shellyplusplugs_e86beae84ce0"
+        ],
+        "labelId": [],
+        "data": "{}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "blockInputOverrides": false,
+        "domain": "switch",
+        "service": "turn_off",
+        "x": 2830,
+        "y": 540,
+        "wires": [
+            [
+                "9cd19f8b88649afd",
+                "bd6a6bfb10740766",
+                "f0d225ae8a8c9b56"
+            ]
+        ]
+    },
+    {
+        "id": "9cd19f8b88649afd",
+        "type": "debug",
+        "z": "9ad45550f96e0c2b",
+        "name": "pump debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3090,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "d4a203e7bc236a92",
+        "type": "debug",
+        "z": "9ad45550f96e0c2b",
+        "name": "dry run debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2840,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "d01ac2a1a8365c49",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "15min cooldown",
+        "func": "const p = msg.payload;\nconst now = Date.now();\n\nlet rawLast = null;\n\nif (typeof p === 'string') {\n    rawLast = p;\n} else if (p && typeof p === 'object') {\n    rawLast = p.state ?? p.value ?? p.lastIrr ?? p.last_irrigation_ms ?? p.last_irrigation ?? null;\n} else {\n    rawLast = null;\n}\n\nconst lastIrr = rawLast ? Date.parse(String(rawLast)) : NaN;\nconst minGap = 15;\nconst gapMs = minGap * 60000;\n\nif (!Number.isFinite(lastIrr)) {\n    msg.payload = {\n        cooldownActive: false,\n        cooldownAllowed: true,\n        reason: 'no_last_irrigation_found',\n        rawLast,\n        now,\n        minGap\n    };\n    return [msg, null];\n}\n\nconst deltaMs = now - lastIrr;\n\nif (deltaMs < gapMs) {\n    msg.payload = {\n        cooldownActive: true,\n        cooldownAllowed: false,\n        action: 'block',\n        reason: 'cooldown_active',\n        cooldownRemainingMin: Math.ceil((gapMs - deltaMs) / 60000),\n        cooldownRemainingSec: Math.ceil((gapMs - deltaMs) / 1000),\n        rawLast,\n        lastIrr,\n        now,\n        minGap,\n        cooldownCheck: { lastIrr, now, deltaMs, gapMs }\n    };\n    return [null, msg];\n}\n\nmsg.payload = {\n    coreDataObj: { ...p },\n    cooldownActive: false,\n    cooldownAllowed: true,\n    rawLast,\n    lastIrr,\n    now,\n    minGap,\n    cooldownCheck: { lastIrr, now, deltaMs, gapMs }\n};\n\nreturn [msg, null];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2100,
+        "y": 260,
+        "wires": [
+            [
+                "4d19d91456ed0b97",
+                "9b12b30262d62892"
+            ],
+            [
+                "58dc5da69a5915ba",
+                "67425ce1e0315916"
+            ]
+        ]
+    },
+    {
+        "id": "67425ce1e0315916",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "block",
+        "func": "msg.payload = { value:\nmsg.payload.reason };\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1370,
+        "y": 540,
+        "wires": [
+            [
+                "20225ed6275e3d66"
+            ]
+        ]
+    },
+    {
+        "id": "4d19d91456ed0b97",
+        "type": "debug",
+        "z": "9ad45550f96e0c2b",
+        "d": true,
+        "name": "run",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2310,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "5ed7439983d34cd5",
+        "type": "debug",
+        "z": "9ad45550f96e0c2b",
+        "d": true,
+        "name": "pumpgate debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1970,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "58dc5da69a5915ba",
+        "type": "debug",
+        "z": "9ad45550f96e0c2b",
+        "d": true,
+        "name": "block",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2310,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "ec02f625cea7bf16",
+        "type": "api-current-state",
+        "z": "9ad45550f96e0c2b",
+        "name": "",
+        "server": "859e5524a789cd87",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_datetime.chadd_pxpics_last_irrigation",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload.lastIrr",
+                "propertyType": "msg",
+                "value": "string",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 1960,
+        "y": 140,
+        "wires": [
+            [
+                "d01ac2a1a8365c49"
+            ]
+        ]
+    },
+    {
+        "id": "4b6b7cc754cd922f",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "d": true,
+        "name": "datastate",
+        "func": "msg.payload = msg.payload || {};\nmsg.payload.vwc = Number(msg.data.state);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 20,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a9e2882edd181654",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "clean msg.payload",
+        "func": "msg.payload = {};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 170,
+        "y": 100,
+        "wires": [
+            [
+                "d7d957cc07be759f"
+            ]
+        ]
+    },
+    {
+        "id": "5165f77880fd3097",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "calculate_profile",
+        "func": "let p = msg.payload || {};\n\nconst phaseMode = String(p.phaseMode || p.phasemode || \"\").toLowerCase();\nconst intent = Number(p.intent ?? 0);\n\nconst phaseMap = {\n    \"gen_1\": 1,\n    \"gen_2\": 2,\n    \"gen_3\": 3,\n    \"gen_4\": 4,\n    \"gen_5\": 5,\n    \"veg_6\": 6,\n    \"veg_7\": 7,\n    \"veg_8\": 8,\n    \"veg_9\": 9,\n    \"veg_10\": 10,\n    \"flower_6\": 6,\n    \"flower_7\": 7,\n    \"flower_8\": 8,\n    \"flower_9\": 9,\n    \"flower_10\": 10\n};\n\nlet idx = phaseMap[phaseMode] ?? 1;\n\n// Optionales Feintuning über intent\n// Beispiel: intent 3 = neutral, kleiner = trockener/früher, größer = generativer/später\nif (Number.isFinite(intent) && intent > 0) {\n    if (intent <= 2) idx -= 1;\n    else if (intent >= 8) idx += 1;\n}\n\nidx = Math.max(1, Math.min(10, idx));\n\nmsg.payload = p;\nmsg.payload.intentprofileindex = idx;\nmsg.payload.computedProfileIndex = idx;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 160,
+        "wires": [
+            [
+                "2494fbd5a49b5337"
+            ]
+        ]
+    },
+    {
+        "id": "f1e09d24448d02f1",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "switchon",
+        "func": "msg.payload.pumpOn = \"on\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2820,
+        "y": 180,
+        "wires": [
+            [
+                "a759596d42b43983"
+            ]
+        ]
+    },
+    {
+        "id": "27bd5c5ac1cc8d09",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "switchoff",
+        "func": "msg.payload.pumpOff = \"off\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2820,
+        "y": 480,
+        "wires": [
+            [
+                "01c0fbfc11f88897"
+            ]
+        ]
+    },
+    {
+        "id": "45de05d50c17065b",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "pumpgate",
+        "func": "[\n    {\n        \"id\": \"pump_gate_v1\",\n        \"type\": \"function\",\n        \"z\": \"tab_chadd\",\n        \"name\": \"Pump gate v1\",\n        \"func\": \"const p = msg.payload || {};\\n\\nconst dryRun = !!p.dryRun;\\nconst action = String(p.action || 'block');\\nconst reason = String(p.reasons || p.reason || '');\\nconst maxPump = Number(p.maxPump || 60);\\nconst pumpTime = Math.max(0, Math.min(Number(p.pumpTime || 0), maxPump));\\nconst shotSize = Number.isFinite(Number(p.shotSize)) ? Number(p.shotSize) : 0;\\n\\nmsg.payload = {\\n  ...p,\\n  pumpTime,\\n  shotSize,\\n  dryRun,\\n  gateAction: action,\\n  gateReason: reason,\\n  gatePassed: action === 'auto_water' || action === 'fallback_water' || action === 'manual'\\n};\\n\\nif (dryRun) {\\n  msg.payload.gatePassed = false;\\n  msg.payload.gateReason = reason ? `${reason},dry_run` : 'dry_run';\\n  return [msg, null];\\n}\\n\\nif (action === 'auto_water' || action === 'fallback_water') {\\n  return [msg, null];\\n}\\n\\nif (action === 'manual') {\\n  return [null, msg];\\n}\\n\\nreturn [null, msg];\",\n        \"outputs\": 2,\n        \"timeout\": 0,\n        \"noerr\": 0,\n        \"initialize\": \"\",\n        \"finalize\": \"\",\n        \"libs\": [],\n        \"wires\": [\n            [\n                \"pump_on\"\n            ],\n            [\n                \"write_block_reason\"\n            ]\n        ]\n    }\n]",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1740,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9b12b30262d62892",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "dryrun?",
+        "func": "msg.payload.dryRun = false;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2320,
+        "y": 140,
+        "wires": [
+            [
+                "cf0ce750a3d06ecd"
+            ]
+        ]
+    },
+    {
+        "id": "186f1be1ba89ab71",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "calc.vwcFcRef",
+        "func": "const p = msg.payload || {};\nconst fcRaw = p.field_capacity_estimate ?? p.field_capacity ?? p.vwc_fc_ref ?? p.vwcFcRef;\nconst fc = Number(fcRaw);\nconst vwc = Number(p.vwc);\n\nconst out = {\n    ...p,\n    field_capacity_estimate: Number.isFinite(Number(p.field_capacity_estimate)) ? Number(p.field_capacity_estimate) : null,\n    field_capacity: Number.isFinite(Number(p.field_capacity)) ? Number(p.field_capacity) : null,\n    vwcFcRef: Number.isFinite(fc) && fc > 0 ? fc : null,\n    vwcFcRefMissing: !(Number.isFinite(fc) && fc > 0),\n    vwcFcRefSource: Number.isFinite(Number(p.field_capacity_estimate)) && Number(p.field_capacity_estimate) > 0 ? 'field_capacity_estimate'\n        : Number.isFinite(Number(p.field_capacity)) && Number(p.field_capacity) > 0 ? 'field_capacity'\n            : Number.isFinite(Number(p.vwc_fc_ref)) && Number(p.vwc_fc_ref) > 0 ? 'vwc_fc_ref'\n                : Number.isFinite(Number(p.vwcFcRef)) && Number(p.vwcFcRef) > 0 ? 'vwcFcRef'\n                    : 'missing',\n    drybackPct: (Number.isFinite(fc) && fc > 0 && Number.isFinite(vwc)) ? ((fc - vwc) / fc) * 100 : null,\n    drybackTarget: Number(p.drybackTarget ?? p.dryback_target ?? p.profile_dryback ?? p.profile?.dryback ?? 40),\n    drybackMin: Number(p.drybackMin ?? p.dryback_target_min ?? Math.max(0, Number(p.drybackTarget ?? p.dryback_target ?? p.profile_dryback ?? p.profile?.dryback ?? 40) - 4)),\n    drybackMax: Number(p.drybackMax ?? p.dryback_target_max ?? Math.min(100, Number(p.drybackTarget ?? p.dryback_target ?? p.profile_dryback ?? p.profile?.dryback ?? 40) + 4))\n};\n\nmsg.payload = out;\nmsg.vwcFcRef = out.vwcFcRef;\nmsg.vwcFcRefSource = out.vwcFcRefSource;\nmsg.drybackPct = out.drybackPct;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 340,
+        "wires": [
+            [
+                "67ab30b71a954b42"
+            ]
+        ]
+    },
+    {
+        "id": "67ab30b71a954b42",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "decision Core v4 simple",
+        "func": "const p = msg.payload || {};\nconst now = Date.now();\nconst vwc = Number(p.vwc);\nconst ec = Number(p.ec);\nconst intent = Number(p.intent || 1);\nconst profile = p.profile || {};\nconst vwcFcRef = Number(p.vwcFcRef ?? p.field_capacity_estimate ?? p.field_capacity ?? 0);\nconst vwcFcRefSource = String(p.vwcFcRefSource || 'missing');\nconst drybackTarget = Number(p.drybackTarget ?? p.dryback_target ?? profile.dryback ?? 40);\nconst drybackMin = Number(p.drybackMin ?? p.dryback_target_min ?? Math.max(0, drybackTarget - 4));\nconst drybackMax = Number(p.drybackMax ?? p.dryback_target_max ?? Math.min(100, drybackTarget + 4));\nconst vwcFloorPct = Number(p.profile_vwc_floor_pct ?? profile.vwcFloorPct ?? 0);\nconst shotSizeBase = Number(p.shot_size_ml || profile.shot || 100);\nconst dripperCount = Number(p.dripper_count || 8);\nconst dripperFlow = Number(p.dripper_flowrate || 0.556);\nconst maxPump = Number(p.max_pump || 60);\nconst minGap = Number(p.min_gap || 30);\nconst maxIrrPerDay = Number(p.max_irrigations_per_day || profile.maxDay || 4);\nconst irrCountToday = Number(p.irrigation_count_today || 0);\nconst timeoutMin = Number(p.timeout || 15);\nconst sanityVwcMin = Number(p.sanity_vwc_min || 10);\nconst sanityVwcMax = Number(p.sanity_vwc_max || 90);\nconst sanityEcMin = Number(p.sanity_ec_min || 500);\nconst sanityEcMax = Number(p.sanity_ec_max || 6000);\nconst mode = String(p.control_mode || 'auto');\nconst primary = String(p.primary_control || 'dryback_first');\nconst fallback = String(p.fallback_mode || 'timed_survival');\nconst dryRun = !!p.dry_run_mode;\nconst manualOverride = !!p.manual_override_enabled;\nconst phaseAuto = !!p.phase_auto_mode;\nconst phaseMode = String(p.phase_mode || 'dryback_first');\nconst growthStage = String(p.growth_stage || 'p1');\nconst lastIrr = Number(p.last_irrigation_ms || 0);\nconst stateAgeMin = p.vwc_state_age_min != null ? Number(p.vwc_state_age_min) : null;\nconst fallbackShotsTodayLimit = Number(p.fallback_shots_limit || 2);\nconst fallbackTime = Number(p.fallback_time || 10);\nconst fallbackCountToday = Number(p.fallback_shots_today || 0);\n\nconst reasons = [];\nlet action = 'block';\nlet shotSize = shotSizeBase;\nlet pumpTime = 0;\nlet drybackPct = Number.isFinite(vwcFcRef) && vwcFcRef > 0 && Number.isFinite(vwc) ? ((vwcFcRef - vwc) / vwcFcRef) * 100 : null;\nlet fallbackCountOut = fallbackCountToday;\nlet irrCountOut = irrCountToday;\n\nif (stateAgeMin !== null && stateAgeMin > timeoutMin) reasons.push('sensor_timeout');\nif (!Number.isFinite(vwc) || !Number.isFinite(ec)) reasons.push('sensor_missing');\nif (Number.isFinite(vwc) && (vwc < sanityVwcMin || vwc > sanityVwcMax)) reasons.push('vwc_out_of_range');\nif (Number.isFinite(ec) && (ec < sanityEcMin || ec > sanityEcMax)) reasons.push('ec_out_of_range');\nif (lastIrr && (now - lastIrr) < minGap * 60000) reasons.push('cooldown_active');\nif (irrCountOut >= maxIrrPerDay) reasons.push('daily_limit_reached');\nif (p.skip_next_shot) reasons.push('skip_next');\nif (!(Number.isFinite(vwcFcRef) && vwcFcRef > 0)) reasons.push('vwcFcRef_missing');\n\nconst targetVwc = (Number.isFinite(vwcFcRef) && vwcFcRef > 0) ? (vwcFcRef * (1 - drybackTarget / 100)) : null;\nconst targetVwcMin = (Number.isFinite(vwcFcRef) && vwcFcRef > 0) ? (vwcFcRef * (1 - drybackMax / 100)) : null;\nconst targetVwcMax = (Number.isFinite(vwcFcRef) && vwcFcRef > 0) ? (vwcFcRef * (1 - drybackMin / 100)) : null;\nconst vwcFloorAbs = (Number.isFinite(vwcFcRef) && vwcFcRef > 0 && Number.isFinite(vwcFloorPct) && vwcFloorPct > 0) ? (vwcFcRef * (vwcFloorPct / 100)) : null;\nconst withinSteeringBand = Number.isFinite(drybackPct) && drybackPct >= drybackMin && drybackPct <= drybackMax;\nconst floorOK = vwcFloorAbs == null ? true : (Number.isFinite(vwc) && vwc >= vwcFloorAbs);\nconst drybackTrigger = Number.isFinite(drybackPct) && drybackPct >= 30;\nconst drybackStarted = Number.isFinite(drybackPct) && drybackPct >= drybackMin;\nconst waterOK = primary === 'dryback_first' ? (drybackStarted && floorOK) : true;\nconst canUseMainLogic = reasons.length === 0;\n\nfunction computeShot() {\n    const intentFactor = intent <= 3 ? 1.2 : intent <= 6 ? 1.0 : intent <= 8 ? 0.8 : 0.6;\n    shotSize = Math.round(shotSizeBase * intentFactor);\n    pumpTime = Math.min(Math.ceil(shotSize / (dripperCount * dripperFlow)), maxPump);\n}\ncomputeShot();\n\nif (mode === 'manual') {\n    action = 'manual';\n} else if (canUseMainLogic && (mode === 'assist' || waterOK || drybackTrigger)) {\n    action = 'auto_water';\n} else if (reasons.length) {\n    if (fallback === 'timed_survival' && fallbackCountOut < fallbackShotsTodayLimit) {\n        action = 'fallback_water';\n        pumpTime = Math.min(fallbackTime, maxPump);\n        shotSize = Math.round(pumpTime * dripperCount * dripperFlow);\n        fallbackCountOut += 1;\n    } else {\n        action = 'block';\n        if (!reasons.includes('fallback_limit_reached') && !reasons.includes('fallback_disabled')) {\n            reasons.push(fallbackCountOut >= fallbackShotsTodayLimit ? 'fallback_limit_reached' : 'fallback_disabled');\n        }\n    }\n} else {\n    action = 'block';\n    reasons.push('target_not_reached');\n}\n\nmsg.payload = {\n    action,\n    reasons: reasons.join(','),\n    mode,\n    primary,\n    fallback,\n    dryRun,\n    manualOverride,\n    phaseAuto,\n    phaseMode,\n    growthStage,\n    vwc,\n    ec,\n    vwcFcRef,\n    vwcFcRefSource,\n    drybackPct,\n    drybackTarget,\n    drybackMin,\n    drybackMax,\n    targetVwc,\n    targetVwcMin,\n    targetVwcMax,\n    vwcFloorPct,\n    vwcFloorAbs,\n    withinSteeringBand,\n    floorOK,\n    intent,\n    shotSize,\n    pumpTime,\n    maxPump,\n    now,\n    lastIrr,\n    fallbackCountToday: fallbackCountOut,\n    fallbackShotsTodayLimit,\n    irrCountToday: irrCountOut,\n    maxIrrPerDay,\n    topicBase: String(p.mqtt_base || 'grow/CHADD_PXPICS').replace(/\\/$/, ''),\n    zone: String(p.zone_name || 'zone_1'),\n    profileName: p.profile_name,\n    profile: p.profile\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1070,
+        "y": 440,
+        "wires": [
+            [
+                "64481d73677674fd"
+            ]
+        ]
+    },
+    {
+        "id": "7d485657e73484e1",
+        "type": "debug",
+        "z": "9ad45550f96e0c2b",
+        "name": "pump on",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2820,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "222ae98051f2f096",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "setpumpontime",
+        "func": "const p = msg.payload || {};\nconst core = p.coreDataObj || p;\n\nmsg.delay = Math.max(1, Math.min(Number(core.pumpTime) || 0, Number(core.maxPump) || 60)) * 1000;\nmsg.payload = p;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2840,
+        "y": 300,
+        "wires": [
+            [
+                "961c58e6e748b14c",
+                "8e9d173c59e98fe0"
+            ]
+        ]
+    },
+    {
+        "id": "8e9d173c59e98fe0",
+        "type": "debug",
+        "z": "9ad45550f96e0c2b",
+        "name": "delaytime",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "delay",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3180,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "fccf364343061298",
+        "type": "debug",
+        "z": "9ad45550f96e0c2b",
+        "name": "blockreason",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1390,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "5652324ad08309e0",
+        "type": "function",
+        "z": "9ad45550f96e0c2b",
+        "name": "function 6",
+        "func": "const p = msg.payload || {};\nconst core = p.coreDataObj || p;\n\nmsg.delay = 0;\nmsg.payload = p;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2820,
+        "y": 420,
+        "wires": [
+            [
+                "27bd5c5ac1cc8d09"
+            ]
+        ]
+    },
+    {
+        "id": "859e5524a789cd87",
+        "type": "server",
+        "name": "Home Assistant QQ",
+        "version": 6,
+        "addon": false,
+        "rejectUnauthorizedCerts": false,
+        "ha_boolean": [
+            "y",
+            "yes",
+            "true",
+            "on",
+            "home",
+            "open"
+        ],
+        "connectionDelay": true,
+        "cacheJson": true,
+        "heartbeat": true,
+        "heartbeatInterval": 30,
+        "areaSelector": "friendlyName",
+        "deviceSelector": "friendlyName",
+        "entitySelector": "friendlyName",
+        "statusSeparator": ": ",
+        "statusYear": "hidden",
+        "statusMonth": "short",
+        "statusDay": "numeric",
+        "statusHourCycle": "default",
+        "statusTimeFormat": "h:m",
+        "enableGlobalContextStore": false
+    },
+    {
+        "id": "681e0473719c2832",
+        "type": "mqtt-broker",
+        "name": "mqttmosq",
+        "broker": "192.168.178.176",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "1c2dec11ca3785ef",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-home-assistant-websocket": "0.80.3"
+        }
+    }
+]

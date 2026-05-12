@@ -1,0 +1,325 @@
+type: vertical-stack
+cards:
+  - type: custom:mushroom-title-card
+  - type: grid
+    columns: 2
+    square: false
+    cards:
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_air_humidity
+        primary: "RH\_ᵃⁱʳ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:water-percent
+        icon_color: pink
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_air_temperature
+        primary: "Temp\_ᵃⁱʳ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:thermometer
+        icon_color: deep-orange
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_co2
+        primary: "CO₂\_ᵃⁱʳ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:molecule-co2
+        icon_color: grey
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_deltat
+        primary: "DeltaT\_ᵃⁱʳ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:delta
+        icon_color: teal
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_dew_point
+        primary: "Dew\_ᵖᵒⁱⁿᵗ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:water-thermometer
+        icon_color: light-blue
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_dli
+        primary: "DLI\_ˡⁱᵍʰᵗ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:weather-sunny
+        icon_color: yellow
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_dryback
+        primary: Dryback %
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:water-off
+        icon_color: deep-purple
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_klima_osmotic_potential
+        primary: "Osmotic\_ᵖᵒᵗᵉⁿᵗⁱᵃˡ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:chart-bell-curve-cumulative
+        icon_color: cyan
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_leaftemp
+        primary: "Temp\_ˡᵉᵃᶠ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:leaf
+        icon_color: green
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_paw
+        primary: "PAW\_ˢᵘᵇ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:cup-water
+        icon_color: blue
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_runoff_ec
+        primary: "EC\_ʳᵘⁿᵒᶠᶠ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:arrow-down-bold
+        icon_color: amber
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_runoff_ph
+        primary: "pH\_ʳᵘⁿᵒᶠᶠ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:flask-outline
+        icon_color: amber
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_runoff_temperature
+        primary: "Temp\_ʳᵘⁿᵒᶠᶠ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:thermometer-chevron-down
+        icon_color: deep-orange
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_substrate_ec
+        primary: "EC\_ˢᵘᵇˢᵗʳᵃᵗᵉ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:sprout
+        icon_color: amber
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_substrate_fc
+        primary: "FC\_ˢᵘᵇˢᵗʳᵃᵗᵉ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:gauge
+        icon_color: brown
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_substrate_temperature
+        primary: "Temp\_ˢᵘᵇˢᵗʳᵃᵗᵉ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:thermometer-lines
+        icon_color: deep-orange
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_substrate_vwc
+        primary: "VWC\_ˢᵘᵇˢᵗʳᵃᵗᵉ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:waves-arrow-up
+        icon_color: blue
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_tank_ec
+        primary: "EC\_ᵗᵃⁿᵏ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:beaker-outline
+        icon_color: amber
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_tank_orp
+        primary: "ORP\_ᵗᵃⁿᵏ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:flash
+        icon_color: orange
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_tank_ph
+        primary: "pH\_ᵗᵃⁿᵏ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:flask
+        icon_color: lime
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_tank_temperature
+        primary: "Temp\_ᵗᵃⁿᵏ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:thermometer-water
+        icon_color: orange
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_vpd
+        primary: "VPD\_ᵃⁱʳ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:leaf-maple
+        icon_color: green
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.sdi12sensor_emulator8h_1_wifi_rssi
+        primary: "WiFi\_ᴿˢˢᴵ"
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:wifi
+        icon_color: blue-grey
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        entity: sensor.ecw
+        primary: ECw
+        secondary: >-
+          {{ states(entity) }} {{ state_attr(entity, 'unit_of_measurement') or
+          '' }}
+        icon: mdi:information-variant-circle
+        icon_color: blue
+        layout: horizontal
+        fill_container: true
+        tap_action:
+          action: more-info
+card_mod:
+  style: |
+    ha-card {
+      border-radius: 18px;
+    }
+
+    mushroom-state-info {
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+
+    mushroom-state-info .container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    mushroom-state-info .primary {
+      font-size: 1.18rem !important;
+      font-weight: 700 !important;
+      line-height: 1.05 !important;
+      letter-spacing: 0 !important;
+    }
+
+    mushroom-state-info .secondary {
+      font-size: 0.98rem !important;
+      line-height: 1.1 !important;
+      opacity: 0.92;
+    }

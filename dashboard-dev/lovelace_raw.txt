@@ -1,0 +1,3508 @@
+title: CHADD
+views:
+  - title: Overview
+    path: overview
+    icon: mdi:home-analytics
+    cards:
+      - type: custom:apexcharts-card
+        header:
+          show: false
+          title: Hydrostream Live Air Quality
+          show_states: true
+          colorize_states: true
+        chart_type: radialBar
+        span: {}
+        series:
+          - entity: sensor.operational_paw
+            name: PAW
+            max: 100
+            color: '#D4FF00'
+          - entity: sensor.aktueller_dryback
+            name: Dryback
+            max: 65
+            color: '#FF6A00'
+          - entity: sensor.sdi12sensor_zone1_sdi12_vwc
+            name: VWC
+            max: 100
+            color: '#FFCC00'
+          - entity: sensor.sdi12sensor_zone1_sdi12_temperature
+            name: Substrat
+            max: 25
+            color: '#FF5F1F'
+          - entity: sensor.sdi12sensor_zone1_sdi12_ec_ppm500
+            name: EC
+            max: 8
+            color: '#9DFF00'
+          - entity: sensor.hydrostream_temperatur
+            name: Air
+            max: 35
+            color: '#22D3EE'
+          - entity: sensor.hydrostream_luftfeuchtigkeit
+            name: RHF
+            max: 100
+            color: '#00FFFF'
+          - entity: sensor.hydrostream_vpd
+            name: VPD
+            max: 2
+            color: '#A500B5'
+        apex_config:
+          plotOptions:
+            radialBar:
+              startAngle: -230
+              endAngle: 70
+              track:
+                background: '#e7e7e7'
+                strokeWidth: 3%
+              dataLabels:
+                name:
+                  show: false
+                value:
+                  offsetY: 10
+                  color: '#111'
+              hollow:
+                margin: 10
+                size: 30%
+                background: transparent
+          legend:
+            show: true
+            position: top
+          stroke:
+            lineCap: round
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+          - type: grid
+            columns: 2
+            square: false
+            cards:
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_air_humidity
+                primary: "RH\_ᵃⁱʳ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:water-percent
+                icon_color: pink
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_air_temperature
+                primary: "Temp\_ᵃⁱʳ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:thermometer
+                icon_color: deep-orange
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_co2
+                primary: "CO₂\_ᵃⁱʳ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:molecule-co2
+                icon_color: grey
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_deltat
+                primary: "DeltaT\_ᵃⁱʳ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:delta
+                icon_color: teal
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_dew_point
+                primary: "Dew\_ᵖᵒⁱⁿᵗ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:water-thermometer
+                icon_color: light-blue
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_dli
+                primary: "DLI\_ˡⁱᵍʰᵗ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:weather-sunny
+                icon_color: yellow
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_dryback
+                primary: Dryback %
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:water-off
+                icon_color: deep-purple
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_klima_osmotic_potential
+                primary: "Osmotic\_ᵖᵒᵗᵉⁿᵗⁱᵃˡ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:chart-bell-curve-cumulative
+                icon_color: cyan
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_leaftemp
+                primary: "Temp\_ˡᵉᵃᶠ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:leaf
+                icon_color: green
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_paw
+                primary: "PAW\_ˢᵘᵇ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:cup-water
+                icon_color: blue
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_runoff_ec
+                primary: "EC\_ʳᵘⁿᵒᶠᶠ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:arrow-down-bold
+                icon_color: amber
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_runoff_ph
+                primary: "pH\_ʳᵘⁿᵒᶠᶠ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:flask-outline
+                icon_color: amber
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_runoff_temperature
+                primary: "Temp\_ʳᵘⁿᵒᶠᶠ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:thermometer-chevron-down
+                icon_color: deep-orange
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_substrate_ec
+                primary: "EC\_ˢᵘᵇˢᵗʳᵃᵗᵉ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:sprout
+                icon_color: amber
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_substrate_fc
+                primary: "FC\_ˢᵘᵇˢᵗʳᵃᵗᵉ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:gauge
+                icon_color: brown
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_substrate_temperature
+                primary: "Temp\_ˢᵘᵇˢᵗʳᵃᵗᵉ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:thermometer-lines
+                icon_color: deep-orange
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_substrate_vwc
+                primary: "VWC\_ˢᵘᵇˢᵗʳᵃᵗᵉ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:waves-arrow-up
+                icon_color: blue
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_tank_ec
+                primary: "EC\_ᵗᵃⁿᵏ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:beaker-outline
+                icon_color: amber
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_tank_orp
+                primary: "ORP\_ᵗᵃⁿᵏ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:flash
+                icon_color: orange
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_tank_ph
+                primary: "pH\_ᵗᵃⁿᵏ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:flask
+                icon_color: lime
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_tank_temperature
+                primary: "Temp\_ᵗᵃⁿᵏ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:thermometer-water
+                icon_color: orange
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_vpd
+                primary: "VPD\_ᵃⁱʳ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:leaf-maple
+                icon_color: green
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_wifi_rssi
+                primary: "WiFi\_ᴿˢˢᴵ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:wifi
+                icon_color: blue-grey
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.ecw
+                primary: ECw
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:information-variant-circle
+                icon_color: blue
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+        card_mod:
+          style: |
+            ha-card {
+              border-radius: 18px;
+            }
+
+            mushroom-state-info {
+              padding-top: 2px;
+              padding-bottom: 2px;
+            }
+
+            mushroom-state-info .container {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 2px;
+            }
+
+            mushroom-state-info .primary {
+              font-size: 1.18rem !important;
+              font-weight: 700 !important;
+              line-height: 1.05 !important;
+              letter-spacing: 0 !important;
+            }
+
+            mushroom-state-info .secondary {
+              font-size: 0.98rem !important;
+              line-height: 1.1 !important;
+              opacity: 0.92;
+            }
+      - type: custom:apexcharts-card
+        header:
+          show: true
+          title: SDI-12 Zone 1 Substrat 24h
+          show_states: true
+          colorize_states: true
+        grid_options:
+          columns: 2
+        graph_span: 24h
+        span:
+          start: day
+        yaxis:
+          - id: vwc
+            min: ~20
+            max: ~85
+            decimals: 1
+          - id: ec
+            opposite: true
+            min: ~0
+            max: ~3
+            decimals: 2
+          - id: temp
+            min: ~10
+            max: ~35
+            decimals: 1
+        series:
+          - entity: sensor.sdi12sensor_zone1_sdi12_vwc
+            name: VWC %
+            color: '#4CAF50'
+            unit: '%'
+            yaxis_id: vwc
+            type: area
+            group_by:
+              func: avg
+              duration: 5m
+          - entity: sensor.sdi12sensor_zone1_sdi12_ec_ppm500
+            name: EC ppm500
+            color: '#2196F3'
+            unit: EC
+            yaxis_id: ec
+            type: area
+            group_by:
+              func: avg
+              duration: 5m
+          - entity: sensor.sdi12sensor_zone1_sdi12_temperature
+            name: Temp
+            color: '#FF9800'
+            unit: °C
+            yaxis_id: temp
+            type: area
+            group_by:
+              func: avg
+              duration: 5m
+        apex_config:
+          fill:
+            type: gradient
+            gradient:
+              shadeIntensity: 1
+              opacityFrom: 0.7
+              opacityTo: 0.3
+              stops:
+                - 0
+                - 90
+                - 100
+          chart:
+            height: 350
+          legend:
+            position: top
+      - type: custom:apexcharts-card
+        header:
+          show: true
+          title: SDI-12 Zone-1 Advanced 12h
+          show_states: true
+          colorize_states: true
+        graph_span: 12h
+        experimental:
+          color_threshold: true
+        now:
+          show: true
+          label: Aktuell
+          color: '#FF0000'
+        yaxis:
+          - id: vwc
+            min: ~20
+            max: ~80
+            decimals: 1
+          - id: tds
+            opposite: true
+            min: ~0
+            max: ~2000
+            decimals: 0
+          - id: temp
+            min: ~10
+            max: ~25
+            decimals: 1
+        series:
+          - entity: sensor.sdi12sensor_zone1_sdi12_vwc
+            name: VWC
+            color: '#4CAF50'
+            unit: '%'
+            yaxis_id: vwc
+            type: area
+            stroke_width: 2
+            curve: smooth
+            show:
+              extremas: true
+            color_threshold:
+              - value: 30
+                color: '#FF0000'
+              - value: 50
+                color: '#FF9800'
+              - value: 80
+                color: '#4CAF50'
+            group_by:
+              func: avg
+              duration: 5m
+          - entity: sensor.sdi12sensor_zone1_sdi12_raw_ec
+            name: TDS (raw EC)
+            color: '#2196F3'
+            unit: ppm
+            yaxis_id: tds
+            type: line
+            stroke_width: 3
+            show:
+              extremas: true
+            color_threshold:
+              - value: 500
+                color: '#4CAF50'
+              - value: 1000
+                color: '#FF9800'
+              - value: 1500
+                color: '#FF0000'
+            group_by:
+              func: last
+              duration: 5m
+          - entity: sensor.sdi12sensor_zone1_sdi12_temperature
+            name: Temp
+            color: '#FF9800'
+            unit: °C
+            yaxis_id: temp
+            type: line
+            stroke_width: 2
+            show:
+              extremas: true
+            color_threshold:
+              - value: 20
+                color: '#4CAF50'
+              - value: 28
+                color: '#FF9800'
+              - value: 32
+                color: '#FF0000'
+            group_by:
+              func: avg
+              duration: 5m
+        apex_config:
+          fill:
+            type: gradient
+            gradient:
+              shadeIntensity: 0.8
+              opacityFrom: 0.6
+              opacityTo: 0.2
+              stops:
+                - 0
+                - 90
+                - 100
+          chart:
+            height: 400
+            zoom:
+              enabled: true
+              type: x
+          annotations:
+            position: back
+            yaxis:
+              - id: vwc
+                'y': 80
+                y2: 100
+                borderColor: '#4CAF50'
+                opacity: 0.3
+                label:
+                  text: Optimal VWC (FC)
+              - id: vwc
+                'y': 30
+                y2: 50
+                borderColor: '#FF9800'
+                opacity: 0.3
+                label:
+                  text: Dryback Target
+            xaxis:
+              - x: now
+                strokeDashArray: 3
+                borderColor: '#FF0000'
+                label:
+                  text: Now
+          tooltip:
+            shared: true
+            intersect: false
+          legend:
+            position: bottom
+            show: false
+      - type: custom:apexcharts-card
+        header:
+          show: true
+          title: Hydrostream Slope Chart (Multi Group)
+          show_states: true
+          colorize_states: true
+        graph_span: 12h
+        span:
+          start: day
+          offset: '-12h'
+        now:
+          show: true
+          label: Jetzt
+        yaxis:
+          - id: temp
+            min: ~15
+            max: ~35
+            decimals: 1
+          - id: humidity
+            opposite: true
+            min: ~30
+            max: ~90
+            decimals: 0
+          - id: vpd
+            min: 0
+            max: ~2
+            decimals: 2
+        series:
+          - entity: sensor.hydrostream_temperatur
+            name: Temperatur
+            color: '#ff6384'
+            unit: °C
+            yaxis_id: temp
+            curve: straight
+            stroke_width: 1
+            show:
+              extremas: true
+          - entity: sensor.hydrostream_luftfeuchtigkeit
+            name: Luftfeuchtigkeit
+            color: '#36a2eb'
+            unit: '%'
+            yaxis_id: humidity
+            curve: straight
+            stroke_width: 1
+            show:
+              extremas: true
+          - entity: sensor.hydrostream_vpd
+            name: VPD
+            color: '#4bc0c0'
+            unit: kPa
+            yaxis_id: vpd
+            curve: straight
+            stroke_width: 0.05
+            show:
+              extremas: true
+        apex_config:
+          chart:
+            height: 350
+            type: line
+          stroke:
+            curve: straight
+            width: 2
+          markers:
+            size: 0.005
+            stroke_width: 1
+          legend:
+            position: top
+          grid:
+            strokeDashArray: 5
+      - type: custom:apexcharts-card
+        header:
+          show: true
+          title: Hydrostream Live Air Quality
+          show_states: true
+          colorize_states: true
+        chart_type: radialBar
+        span: {}
+        series:
+          - entity: sensor.hydrostream_temperatur
+            name: Temperatur
+            max: 35
+            color: '#ff6384'
+          - entity: sensor.hydrostream_luftfeuchtigkeit
+            name: Luftfeuchtigkeit
+            max: 100
+            color: '#36a2eb'
+          - entity: sensor.hydrostream_vpd
+            name: VPD
+            max: 2
+            color: '#4bc0c0'
+        apex_config:
+          plotOptions:
+            radialBar:
+              startAngle: -70
+              endAngle: 70
+              track:
+                background: '#e7e7e7'
+                strokeWidth: 3%
+              dataLabels:
+                name:
+                  show: false
+                value:
+                  offsetY: 10
+                  color: '#111'
+              hollow:
+                margin: 10
+                size: 30%
+                background: transparent
+          legend:
+            position: bottom
+          stroke:
+            lineCap: round
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-number-card
+            entity: input_number.chadd_pxpics_intent
+            name: Steering Intent
+            display_mode: slider
+            icon: mdi:target
+            icon_color: pink
+            fill_container: false
+            layout: horizontal
+            primary_info: name
+            secondary_info: last-changed
+            tap_action:
+              action: toggle
+          - type: custom:mushroom-template-card
+            entity: sensor.chad_pxpics_intent_text
+            primary: '{{ states(''sensor.chadd_pxpics_intent_text'') }}'
+            icon: mdi:information-outline
+            tap_action:
+              action: none
+            color: >-
+              {{ 'green' if states('input_number.chadd_pxpics_intent') | int > 5
+              else 'red' }}
+            features_position: bottom
+      - type: markdown
+        content: >
+          {% set e = 'sensor.chadd_console' %} {% set action = state_attr(e,
+          'action') | default('-', true) %} {% set reason = state_attr(e,
+          'reason') | default('-', true) %} {% set vwc = state_attr(e, 'vwc') |
+          float(0) %} {% set ec = state_attr(e, 'ec') | int(0) %} {% set db =
+          state_attr(e, 'drybackpct') | float(0) %} {% set db_target =
+          state_attr(e, 'dryback_target') | float(0) %} {% set shot =
+          state_attr(e, 'shotSize') | int(0) %} {% set pump = state_attr(e,
+          'pumpTime') | int(0) %} {% set profile = state_attr(e, 'profile_name')
+          | default('-', true) %} {% set cooldown = state_attr(e,
+          'cooldown_active') | default(false) %}
+
+          {% if cooldown %}
+            {% set color = '#03a9f4' %}
+            {% set status = 'COOLDOWN' %}
+          {% elif vwc < 52 %}
+            {% set color = '#e53935' %}
+            {% set status = 'LOW VWC' %}
+          {% elif db > db_target %}
+            {% set color = '#fb8c00' %}
+            {% set status = 'DRYBACK HIGH' %}
+          {% else %}
+            {% set color = '#43a047' %}
+            {% set status = 'OK' %}
+          {% endif %}
+
+          <ha-alert alert-type="info" title="{{ status }}">
+            <span style="color: {{ color }};">
+              <b>{{ action }}</b> · {{ reason }}<br>
+              VWC: {{ vwc | round(1) }} · EC: {{ ec }} · DB: {{ db | round(1) }}% / {{ db_target | round(1) }}%<br>
+              Shot: {{ shot }} · Pump: {{ pump }}s · Profile: {{ profile }} · Cooldown: {{ cooldown }}
+            </span>
+          </ha-alert>
+      - type: entities
+        title: Osmotic Stats
+        entities:
+          - entity: input_number.chadd_pxpics_osmotic_potential_target
+            name: Osmotic Potential Target
+            secondary_info: Zielwert in kPa
+          - entity: input_number.chadd_pxpics_ec_target
+            name: EC Target
+            secondary_info: Ziel-EC
+          - entity: input_number.chadd_pxpics_leaching_fraction_target
+            name: Leaching Fraction Target
+            secondary_info: Ziel-Leaching in %
+      - type: entities
+        entities:
+          - entity: sensor.sdi12sensor_zone1_sdi12_ec_epsilon
+            name: SDI12 EC Epsilon
+          - entity: sensor.sdi12sensor_zone1_sdi12_ec_ppm500
+            name: SDI12 EC ppm500
+          - entity: sensor.sdi12sensor_zone1_sdi12_raw_ec
+            name: SDI12 Raw EC
+          - entity: sensor.sdi12sensor_zone1_sdi12_raw_vwc
+            name: SDI12 Raw VWC
+          - entity: sensor.sdi12sensor_zone1_sdi12_temperature
+            name: SDI12 Temperature
+          - entity: sensor.sdi12sensor_zone1_sdi12_vwc
+            name: SDI12 VWC
+        title: sdi12sensor-zone1
+      - type: entities
+        entities:
+          - entity: sensor.sdi12sensor_greenhouse1_sdi12_air_humidity
+            name: SDI12 Air Humidity
+          - entity: sensor.sdi12sensor_greenhouse1_sdi12_air_temperature
+            name: SDI12 Air Temperature
+          - entity: sensor.sdi12sensor_greenhouse1_sdi12_ec_epsilon
+            name: SDI12 EC Epsilon
+          - entity: sensor.sdi12sensor_greenhouse1_sdi12_ec_ppm500
+            name: SDI12 EC ppm500
+          - entity: sensor.sdi12sensor_greenhouse1_sdi12_paw_percent
+            name: SDI12 PAW Percent
+          - entity: sensor.sdi12sensor_greenhouse1_sdi12_raw_ec
+            name: SDI12 Raw EC
+          - entity: sensor.sdi12sensor_greenhouse1_sdi12_raw_vwc
+            name: SDI12 Raw VWC
+          - entity: sensor.sdi12sensor_greenhouse1_sdi12_temperature
+            name: SDI12 Substrate Temperature
+          - entity: sensor.sdi12sensor_greenhouse1_sdi12_vwc
+            name: SDI12 VWC
+        title: sdi12sensor-greenhouse1
+      - type: custom:apexcharts-card
+        chart_type: radialBar
+        header:
+          show: false
+          title: Tankfüllstände
+          show_states: true
+          colorize_states: true
+        series:
+          - entity: sensor.operational_paw
+            name: RO-Tank
+            color: '#38bdf8'
+            min: 0
+            max: 100
+            show:
+              in_header: true
+          - entity: sensor.aktueller_dryback
+            name: Mix-Tank
+            color: '#22c55e'
+            min: 0
+            max: 100
+            show:
+              in_header: true
+        apex_config:
+          chart:
+            height: 210
+          legend:
+            show: true
+            floating: true
+            position: left
+            offsetY: 12
+            labels:
+              useSeriesColors: true
+          plotOptions:
+            radialBar:
+              startAngle: 180
+              endAngle: 360
+              hollow:
+                size: 30%
+                background: transparent
+              track:
+                background: '#1f2937'
+              dataLabels:
+                name:
+                  show: false
+                value:
+                  show: false
+      - type: entities
+        entities:
+          - entity: sensor.uno_r4_water_ec_uptime
+            name: Uptime
+          - entity: sensor.uno_r4_water_ec_water_ec
+            name: Water EC
+          - entity: sensor.uno_r4_water_ec_water_ec_raw
+            name: Water EC Raw
+          - entity: sensor.uno_r4_water_ec_water_raw_adc
+            name: Water Raw ADC
+          - entity: sensor.uno_r4_water_ec_water_temperature
+            name: Water Temperature
+          - entity: sensor.uno_r4_water_ec_water_voltage
+            name: Water Voltage
+          - entity: sensor.uno_r4_water_ec_wifi_rssi
+            name: WiFi RSSI
+        title: uno-r4-water-ec
+      - type: entities
+        title: Live Status
+        entities:
+          - entity: sensor.sdi12sensor_zone1_sdi12_vwc
+            name: Current VWC
+            secondary_info: Volumetrischer Wassergehalt (%)
+          - entity: sensor.sdi12sensor_zone1_sdi12_ec_ppm500
+            name: Current EC
+            secondary_info: Elektrische Leitfähigkeit (mS/cm)
+          - entity: sensor.sdi12sensor_zone1_sdi12_temperature
+            name: Current Temp
+            secondary_info: Temperatur in °C
+          - entity: sensor.operational_paw
+          - entity: sensor.aktueller_dryback
+          - entity: sensor.nodered_774d45005a6b079d
+          - entity: input_text.chadd_pxpics_last_blocker_reason
+            name: Last Block
+            secondary_info: Last Block Reason
+          - entity: input_text.chadd_pxpics_current_profile_name
+            name: Current Profile
+            secondary_info: Aktiver Bewässerungs-Profilname
+          - entity: input_number.chadd_pxpics_irrigation_count_today
+            name: Shots Today
+            secondary_info: Anzahl Bewässerungen heute
+          - entity: input_number.chadd_pxpics_fallback_shots_today
+            name: Fallback Today
+            secondary_info: Anzahl Fallback-Shots heute
+          - entity: input_boolean.chadd_pxpics_fallback_alert_enabled
+            name: Fallback Alarm
+            secondary_info: Alarm bei Fallback aktivieren?
+      - type: entities
+        entities:
+          - entity: sensor.shellyplusplugs_e86beae84ce0_energie
+            name: Energie
+          - entity: sensor.shellyplusplugs_e86beae84ce0_leistung
+            name: Leistung
+        title: shellyplusplugs-e86beae84ce0
+      - type: custom:apexcharts-card
+        graph_span: 24h
+        span:
+          start: day
+        header:
+          show: true
+          title: Substrat
+          show_states: true
+          colorize_states: true
+        now:
+          show: true
+          label: Jetzt
+        apex_config:
+          chart:
+            height: 320
+          legend:
+            show: true
+          stroke:
+            curve: smooth
+            width: 2
+          tooltip:
+            shared: true
+            intersect: false
+          yaxis:
+            - id: vwc
+              min: 20
+              max: 80
+              decimalsInFloat: 1
+              title:
+                text: VWC %
+            - id: ec
+              opposite: true
+              min: 300
+              max: 2500
+              decimalsInFloat: 0
+              title:
+                text: EC µS/cm
+            - id: temp
+              opposite: true
+              min: 15
+              max: 30
+              decimalsInFloat: 1
+              title:
+                text: Temp °C
+        series:
+          - entity: sensor.sdi12sensor_greenhouse1_sdi12_vwc
+            name: VWC
+            yaxis_id: vwc
+            type: line
+            color: '#00bcd4'
+            stroke_width: 3
+            float_precision: 1
+            group_by:
+              duration: 10min
+              func: avg
+            show:
+              legend_value: true
+              in_header: true
+          - entity: sensor.sdi12sensor_greenhouse1_sdi12_raw_ec
+            name: EC
+            yaxis_id: ec
+            type: line
+            color: '#8bc34a'
+            stroke_width: 3
+            float_precision: 0
+            group_by:
+              duration: 10min
+              func: avg
+            show:
+              legend_value: true
+              in_header: true
+          - entity: sensor.sdi12sensor_greenhouse1_sdi12_temperature
+            name: Temperatur
+            yaxis_id: temp
+            type: line
+            color: '#ff9800'
+            stroke_width: 2
+            float_precision: 1
+            group_by:
+              duration: 10min
+              func: avg
+            show:
+              legend_value: true
+              in_header: true
+      - type: entities
+        entities:
+          - entity: sensor.hydrostream_luftfeuchtigkeit
+            name: Luftfeuchtigkeit
+          - entity: binary_sensor.hydrostream_status
+            name: Status
+          - entity: sensor.hydrostream_temperatur
+            name: Temperatur
+          - entity: sensor.hydrostream_vpd
+            name: VPD
+        title: hydrostream
+      - type: entities
+        entities:
+          - entity: sensor.sdi12sensor_emulator8h_1_air_humidity
+            name: Air Humidity
+          - entity: sensor.sdi12sensor_emulator8h_1_air_temperature
+            name: Air Temperature
+          - entity: sensor.sdi12sensor_emulator8h_1_co2
+            name: CO2
+          - entity: sensor.sdi12sensor_emulator8h_1_deltat
+            name: DeltaT
+          - entity: sensor.sdi12sensor_emulator8h_1_dew_point
+            name: Dew Point
+          - entity: sensor.sdi12sensor_emulator8h_1_dli
+            name: DLI
+          - entity: sensor.sdi12sensor_emulator8h_1_dryback
+            name: Dryback
+          - entity: sensor.sdi12sensor_emulator8h_1_klima_osmotic_potential
+            name: Klima Osmotic Potential
+          - entity: sensor.sdi12sensor_emulator8h_1_leaftemp
+            name: LeafTemp
+          - entity: sensor.sdi12sensor_emulator8h_1_paw
+            name: PAW
+          - entity: sensor.sdi12sensor_emulator8h_1_runoff_ec
+            name: RunOff EC
+          - entity: sensor.sdi12sensor_emulator8h_1_runoff_ph
+            name: RunOff pH
+          - entity: sensor.sdi12sensor_emulator8h_1_runoff_temperature
+            name: RunOff Temperature
+          - entity: sensor.sdi12sensor_emulator8h_1_substrate_ec
+            name: Substrate EC
+          - entity: sensor.sdi12sensor_emulator8h_1_substrate_fc
+            name: Substrate FC
+          - entity: sensor.sdi12sensor_emulator8h_1_substrate_temperature
+            name: Substrate Temperature
+          - entity: sensor.sdi12sensor_emulator8h_1_substrate_vwc
+            name: Substrate VWC
+          - entity: sensor.sdi12sensor_emulator8h_1_tank_ec
+            name: Tank EC
+          - entity: sensor.sdi12sensor_emulator8h_1_tank_orp
+            name: Tank ORP
+          - entity: sensor.sdi12sensor_emulator8h_1_tank_ph
+            name: Tank pH
+          - entity: sensor.sdi12sensor_emulator8h_1_tank_temperature
+            name: Tank Temperature
+          - entity: sensor.sdi12sensor_emulator8h_1_vpd
+            name: VPD
+          - entity: sensor.sdi12sensor_emulator8h_1_wifi_rssi
+            name: WiFi RSSI
+        title: sdi12sensor-emulator8h-1
+  - title: Profiles
+    path: profiles
+    icon: mdi:leaf
+    cards:
+      - type: entities
+        title: GEN Profil
+        entities:
+          - entity: input_number.chadd_pxpics_gen_dryback_target
+            name: GEN Dryback Target
+            secondary_info: GEN Dryback-Ziel (%)
+          - entity: input_number.chadd_pxpics_gen_shot_size_ml
+            name: GEN Shot Size ml
+            secondary_info: GEN Shot-Volumen (ml)
+          - entity: input_number.chadd_pxpics_gen_max_irrigations_per_day
+            name: GEN Max/Tag
+            secondary_info: GEN Max Bewässerungen/Tag
+      - type: entities
+        title: VEG Profil
+        entities:
+          - entity: input_number.chadd_pxpics_veg_dryback_target
+            name: VEG Dryback Target
+            secondary_info: VEG Dryback-Ziel (%)
+          - entity: input_number.chadd_pxpics_veg_shot_size_ml
+            name: VEG Shot Size ml
+            secondary_info: VEG Shot-Volumen (ml)
+          - entity: input_number.chadd_pxpics_veg_max_irrigations_per_day
+            name: VEG Max/Tag
+            secondary_info: VEG Max Bewässerungen/Tag
+      - type: entities
+        title: Misc
+        entities:
+          - entity: input_text.chadd_pxpics_mqtt_base_topic
+            name: MQTT Base Topic
+            secondary_info: MQTT Basis-Topic
+          - entity: input_text.chadd_pxpics_zone_name
+            name: Zone Name
+            secondary_info: Name der Zone
+          - entity: input_text.chadd_pxpics_last_blocker_reason
+            name: Letzter Blocker Reason
+            secondary_info: Detaillierter Blocker-Grund
+          - entity: input_datetime.chadd_pxpics_last_irrigation
+            name: Letzte Bewässerung
+            secondary_info: Zeitstempel letzte Irrigation
+          - entity: input_datetime.chadd_pxpics_last_irrigation_of_day
+            name: Letzte tägliche Irrigation
+            secondary_info: Letzte Irrigation des Tages
+          - entity: input_boolean.chadd_pxpics_decision_log_enabled
+            name: Decision Log Enabled
+            secondary_info: Entscheidungs-Logging aktiv?
+      - type: custom:mushroom-template-card
+        secondary: '{{ states(''sensor.industry_secrets'') }}'
+        multiline_secondary: true
+        icon: mdi:lightbulb-on-outline
+        badge_icon: mdi:refresh-auto
+        badge_color: green
+        color: amber
+        features_position: bottom
+        entity: sensor.industry_secrets
+      - type: entities
+        entities:
+          - entity: sensor.mqtt_console_2
+            name: MQTT
+      - type: custom:mushroom-template-card
+        entity: sensor.chadd_console
+        primary: >-
+          {% set action = state_attr(entity, 'action') | default('-', true) %}
+          {% set reason = state_attr(entity, 'reason') | default('-', true) %}
+          {{ action }} · {{ reason }}
+        secondary: >-
+          {% set vwc = state_attr(entity, 'vwc') | float(0) %} {% set ec =
+          state_attr(entity, 'ec') | int(0) %} {% set db = state_attr(entity,
+          'drybackpct') | float(0) %} {% set db_target = state_attr(entity,
+          'dryback_target') | float(0) %} {% set shot = state_attr(entity,
+          'shotSize') | int(0) %} {% set pump = state_attr(entity, 'pumpTime') |
+          int(0) %} {% set profile = state_attr(entity, 'profile_name') |
+          default('-', true) %} {% set cooldown = state_attr(entity,
+          'cooldown_active') | default(false) %}
+
+          VWC {{ vwc | round(1) }} · EC {{ ec }} DB {{ db | round(1) }}% / {{
+          db_target | round(1) }}% Shot {{ shot }} ml · Pump {{ pump }} s {{
+          profile }} · Cooldown {{ 'ON' if cooldown else 'OFF' }}
+        multiline_secondary: true
+        icon: >-
+          {% set cooldown = state_attr(entity, 'cooldown_active') |
+          default(false) %} {% set vwc = state_attr(entity, 'vwc') | float(0) %}
+          {% set db = state_attr(entity, 'drybackpct') | float(0) %} {% set
+          db_target = state_attr(entity, 'dryback_target') | float(0) %}
+
+          {% if cooldown %}
+            mdi:snowflake-thermometer
+          {% elif vwc < 52 %}
+            mdi:water-alert
+          {% elif db > db_target %}
+            mdi:chart-line-variant
+          {% else %}
+            mdi:sprout
+          {% endif %}
+        icon_color: >-
+          {% set cooldown = state_attr(entity, 'cooldown_active') |
+          default(false) %} {% set vwc = state_attr(entity, 'vwc') | float(0) %}
+          {% set db = state_attr(entity, 'drybackpct') | float(0) %} {% set
+          db_target = state_attr(entity, 'dryback_target') | float(0) %}
+
+          {% if cooldown %}
+            blue
+          {% elif vwc < 52 %}
+            red
+          {% elif db > db_target %}
+            orange
+          {% else %}
+            green
+          {% endif %}
+        fill_container: true
+        layout: vertical
+        tap_action:
+          action: more-info
+        hold_action:
+          action: more-info
+        card_mod:
+          mushroom-state-info$: |
+            .container {
+             --card-primary-font-size: 20px;
+             --card-secondary-font-size: 20px;
+             --card-primary-font-weight: 600;
+             --card-secondary-font-weight: 500;
+             }
+          style: |
+            ha-card {
+              {% set cooldown = state_attr(config.entity, 'cooldown_active') | default(false) %}
+              {% set vwc = state_attr(config.entity, 'vwc') | float(0) %}
+              {% set db = state_attr(config.entity, 'drybackpct') | float(0) %}
+              {% set db_target = state_attr(config.entity, 'dryback_target') | float(0) %}
+
+              {% if cooldown %}
+                --ha-card-border-color: rgba(3, 169, 244, 0.9);
+                background: rgba(3, 169, 244, 0.08);
+              {% elif vwc < 52 %}
+                --ha-card-border-color: rgba(229, 57, 53, 0.9);
+                background: rgba(229, 57, 53, 0.08);
+              {% elif db > db_target %}
+                --ha-card-border-color: rgba(251, 140, 0, 0.9);
+                background: rgba(251, 140, 0, 0.08);
+              {% else %}
+                --ha-card-border-color: rgba(67, 160, 71, 0.9);
+                background: rgba(67, 160, 71, 0.08);
+              {% endif %}
+
+              border: 1px solid var(--ha-card-border-color);
+              border-radius: 16px;
+            }
+      - type: markdown
+        content: >
+          {% set e = 'sensor.chadd_console' %} {% set action = state_attr(e,
+          'action') | default('-', true) %} {% set reason = state_attr(e,
+          'reason') | default('-', true) %} {% set vwc = state_attr(e, 'vwc') |
+          float(0) %} {% set ec = state_attr(e, 'ec') | int(0) %} {% set db =
+          state_attr(e, 'drybackpct') | float(0) %} {% set db_target =
+          state_attr(e, 'dryback_target') | float(0) %} {% set shot =
+          state_attr(e, 'shotSize') | int(0) %} {% set pump = state_attr(e,
+          'pumpTime') | int(0) %} {% set profile = state_attr(e, 'profile_name')
+          | default('-', true) %} {% set cooldown = state_attr(e,
+          'cooldown_active') | default(false) %}
+
+          {% if cooldown %}
+            {% set color = '#03a9f4' %}
+            {% set status = 'COOLDOWN' %}
+          {% elif vwc < 52 %}
+            {% set color = '#e53935' %}
+            {% set status = 'LOW VWC' %}
+          {% elif db > db_target %}
+            {% set color = '#fb8c00' %}
+            {% set status = 'DRYBACK HIGH' %}
+          {% else %}
+            {% set color = '#43a047' %}
+            {% set status = 'OK' %}
+          {% endif %}
+
+          <ha-alert alert-type="info" title="{{ status }}">
+            <span style="color: {{ color }};">
+              <b>{{ action }}</b> · {{ reason }}<br>
+              VWC: {{ vwc | round(1) }} · EC: {{ ec }} · DB: {{ db | round(1) }}% / {{ db_target | round(1) }}%<br>
+              Shot: {{ shot }} · Pump: {{ pump }}s · Profile: {{ profile }} · Cooldown: {{ cooldown }}
+            </span>
+          </ha-alert>
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            subtitle: Klima, Tank, Runoff und Substrat
+          - type: grid
+            columns: 2
+            square: false
+            cards:
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_air_humidity
+                primary: "RH\_ᵃⁱʳ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:water-percent
+                icon_color: pink
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_air_temperature
+                primary: "Temp\_ᵃⁱʳ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:thermometer
+                icon_color: deep-orange
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_co2
+                primary: "CO₂\_ᵃⁱʳ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:molecule-co2
+                icon_color: grey
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_deltat
+                primary: "DeltaT\_ᵃⁱʳ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:delta
+                icon_color: teal
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_dew_point
+                primary: "Dew\_ᵖᵒⁱⁿᵗ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:water-thermometer
+                icon_color: light-blue
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_dli
+                primary: "DLI\_ˡⁱᵍʰᵗ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:weather-sunny
+                icon_color: yellow
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_dryback
+                primary: Dryback %
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:water-off
+                icon_color: deep-purple
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_klima_osmotic_potential
+                primary: "Osmotic\_ᵖᵒᵗᵉⁿᵗⁱᵃˡ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:chart-bell-curve-cumulative
+                icon_color: cyan
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_leaftemp
+                primary: "Temp\_ˡᵉᵃᶠ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:leaf
+                icon_color: green
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_paw
+                primary: "PAW\_ˢᵘᵇ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:cup-water
+                icon_color: blue
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_runoff_ec
+                primary: "EC\_ʳᵘⁿᵒᶠᶠ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:arrow-down-bold
+                icon_color: amber
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_runoff_ph
+                primary: "pH\_ʳᵘⁿᵒᶠᶠ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:flask-outline
+                icon_color: amber
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_runoff_temperature
+                primary: "Temp\_ʳᵘⁿᵒᶠᶠ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:thermometer-chevron-down
+                icon_color: deep-orange
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_substrate_ec
+                primary: "EC\_ˢᵘᵇˢᵗʳᵃᵗᵉ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:sprout
+                icon_color: amber
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_substrate_fc
+                primary: "FC\_ˢᵘᵇˢᵗʳᵃᵗᵉ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:gauge
+                icon_color: brown
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_substrate_temperature
+                primary: "Temp\_ˢᵘᵇˢᵗʳᵃᵗᵉ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:thermometer-lines
+                icon_color: deep-orange
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_substrate_vwc
+                primary: "VWC\_ˢᵘᵇˢᵗʳᵃᵗᵉ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:waves-arrow-up
+                icon_color: blue
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_tank_ec
+                primary: "EC\_ᵗᵃⁿᵏ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:beaker-outline
+                icon_color: amber
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_tank_orp
+                primary: "ORP\_ᵗᵃⁿᵏ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:flash
+                icon_color: orange
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_tank_ph
+                primary: "pH\_ᵗᵃⁿᵏ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:flask
+                icon_color: lime
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_tank_temperature
+                primary: "Temp\_ᵗᵃⁿᵏ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:thermometer-water
+                icon_color: orange
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_vpd
+                primary: "VPD\_ᵃⁱʳ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:leaf-maple
+                icon_color: green
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                entity: sensor.sdi12sensor_emulator8h_1_wifi_rssi
+                primary: "WiFi\_ᴿˢˢᴵ"
+                secondary: >-
+                  {{ states(entity) }} {{ state_attr(entity,
+                  'unit_of_measurement') or '' }}
+                icon: mdi:wifi
+                icon_color: blue-grey
+                layout: horizontal
+                fill_container: true
+                tap_action:
+                  action: more-info
+          - type: gauge
+            entity: sensor.sdi12sensor_zone1_sdi12_raw_ec
+            max: 5000
+            needle: false
+        card_mod:
+          style: |
+            ha-card {
+              border-radius: 18px;
+            }
+
+            mushroom-state-info {
+              padding-top: 2px;
+              padding-bottom: 2px;
+            }
+
+            mushroom-state-info .container {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 2px;
+            }
+
+            mushroom-state-info .primary {
+              font-size: 1.18rem !important;
+              font-weight: 700 !important;
+              line-height: 1.05 !important;
+              letter-spacing: 0 !important;
+            }
+
+            mushroom-state-info .secondary {
+              font-size: 0.98rem !important;
+              line-height: 1.1 !important;
+              opacity: 0.92;
+            }
+  - title: Control
+    path: control
+    icon: mdi:tune
+    cards:
+      - type: entities
+        title: Modi
+        entities:
+          - entity: input_select.chadd_pxpics_control_mode
+            name: Control Mode
+            secondary_info: Hauptsteuerungsmodus wählen
+          - entity: input_select.chadd_pxpics_fallback_mode
+            name: Fallback Mode
+            secondary_info: Fallback-Verhalten bei Fehlern
+          - entity: input_select.chadd_pxpics_primary_control
+            name: Primary Control
+            secondary_info: Primäre Kontrollquelle
+          - entity: input_select.chadd_pxpics_phase_mode
+            name: Phase Mode
+            secondary_info: Wachstumsphase-Modus
+          - entity: input_select.chadd_pxpics_growth_stage
+            name: Growth Stage
+            secondary_info: Aktuelle Wachstumsphase
+          - entity: input_boolean.chadd_pxpics_phase_auto_mode
+            name: Phase Auto
+            secondary_info: Automatischer Phasenwechsel?
+          - entity: input_boolean.chadd_pxpics_manual_override_enabled
+            name: Manual Override
+            secondary_info: Manuelle Überschreibung aktiv?
+          - entity: input_boolean.chadd_pxpics_dry_run_mode
+            name: Dry Run Mode
+            secondary_info: Testmodus ohne Bewässerung
+          - entity: input_boolean.chadd_pxpics_skip_next_shot
+            name: Skip Next Shot
+            secondary_info: Nächsten Shot überspringen
+      - type: entities
+        title: Targets
+        entities:
+          - entity: input_number.chadd_pxpics_intent
+            name: Intent
+            secondary_info: Ziel-VWC-Wert (%)
+          - entity: input_number.chadd_pxpics_intent_profile_index
+            name: Intent Profil Index
+            secondary_info: Index des Intent-Profils
+          - entity: input_number.chadd_pxpics_dryback_target
+            name: Dryback Target
+            secondary_info: Ziel-Trockenphase (%)
+          - entity: input_number.chadd_pxpics_vwc_target
+            name: VWC Target
+            secondary_info: Ziel-Wassergehalt (%)
+          - entity: input_number.chadd_pxpics_ec_target
+            name: EC Target
+            secondary_info: Ziel-EC-Wert (mS/cm)
+          - entity: input_number.chadd_pxpics_field_capacity_estimate
+            name: Field Capacity
+            secondary_info: Geschätzte Feldkapazität (%)
+          - entity: input_number.chadd_pxpics_shot_size_ml
+            name: Shot Size ml
+            secondary_info: Volumen pro Shot (ml)
+          - entity: input_number.chadd_pxpics_pump_time
+            name: Pump Time
+            secondary_info: Pumpdauer pro Shot (s)
+          - entity: input_number.chadd_pxpics_max_pump_time
+            name: Max Pump Time
+            secondary_info: Maximale Pumpdauer (s)
+          - entity: input_number.chadd_pxpics_min_time_between_shots
+            name: Min Time Between Shots
+            secondary_info: Mindestzeit zwischen Shots (min)
+      - type: entities
+        title: Fallback & Safety
+        entities:
+          - entity: input_number.chadd_pxpics_fallback_pump_time
+            name: Fallback Pump Time
+            secondary_info: Fallback-Pumpdauer (s)
+          - entity: input_number.chadd_pxpics_fallback_shots_today_limit
+            name: Fallback Limit Heute
+            secondary_info: Max Fallback-Shots/Tag
+          - entity: input_number.chadd_pxpics_fallback_shots_today
+            name: Fallback Shots Heute
+            secondary_info: Aktuelle Fallback-Anzahl
+          - entity: input_number.chadd_pxpics_max_irrigations_per_day
+            name: Max Bewässerungen/Tag
+            secondary_info: Max tägliche Bewässerungen
+          - entity: input_number.chadd_pxpics_sensor_timeout_minutes
+            name: Sensor Timeout
+            secondary_info: Sensor-Timeout (min)
+          - entity: input_number.chadd_pxpics_lockout_after_manual_minutes
+            name: Lockout nach Manual
+            secondary_info: Sperrzeit nach Manual (min)
+          - entity: input_number.chadd_pxpics_value_sanity_vwc_min
+            name: VWC Sanity Min
+            secondary_info: Mindest-VWC-Sanity (%)
+          - entity: input_number.chadd_pxpics_value_sanity_vwc_max
+            name: VWC Sanity Max
+            secondary_info: Max-VWC-Sanity (%)
+          - entity: input_number.chadd_pxpics_value_sanity_ec_min
+            name: EC Sanity Min
+            secondary_info: Mindest-EC-Sanity (mS/cm)
+          - entity: input_number.chadd_pxpics_value_sanity_ec_max
+            name: EC Sanity Max
+            secondary_info: Max-EC-Sanity (mS/cm)
+      - type: entities
+        entities:
+          - entity: input_datetime.chadd_pxpics_phase_p0_start
+            name: P0 Start
+          - entity: input_datetime.chadd_pxpics_phase_p0_end
+            name: P0 End
+          - entity: input_datetime.chadd_pxpics_phase_p1_start
+            name: P1 Start
+          - entity: input_datetime.chadd_pxpics_phase_p1_end
+            name: P1 End
+          - entity: input_datetime.chadd_pxpics_phase_p2_start
+            name: P2 Start
+          - entity: input_datetime.chadd_pxpics_phase_p2_end
+            name: P2 End
+        show_header_toggle: false
+        state_color: false
+        title: Phase Time
+      - type: entities
+        title: Hydraulics
+        entities:
+          - entity: input_number.chadd_pxpics_dripper_count
+            name: Dripper Count
+            secondary_info: Anzahl Tropfer
+          - entity: input_number.chadd_pxpics_dripper_flowrate
+            name: Dripper Flow Rate
+            secondary_info: Durchfluss pro Tropfer (ml/min)
+          - entity: input_number.chadd_pxpics_window_start_minutes
+            name: Window Start Min
+            secondary_info: Start Zeitfenster (Min nach Mitternacht)
+          - entity: input_number.chadd_pxpics_window_end_minutes
+            name: Window End Min
+            secondary_info: Ende Zeitfenster (Min nach Mitternacht)
+          - entity: input_number.chadd_pxpics_p2_hold_minutes
+            name: P2 Hold Minutes
+            secondary_info: P2-Haltzeit (min)
+      - type: entities
+        title: Transpiration
+        entities:
+          - entity: input_number.chadd_pxpics_transpiration_rate_estimate
+            name: Transpiration Estimate
+            secondary_info: Geschätzte Transpiration (ml/Tag)
+          - entity: input_number.chadd_pxpics_transpiration_rate_measured
+            name: Transpiration Measured
+            secondary_info: Gemessene Transpiration (ml/Tag)
+          - entity: input_number.chadd_pxpics_transpiration_rate_blended
+            name: Transpiration Blended
+            secondary_info: Gemischte Transpiration (ml/Tag)
+          - entity: input_number.chadd_pxpics_vpd_estimate
+            name: VPD Estimate
+            secondary_info: Dampfdruckdefizit (kPa)
+          - entity: input_number.chadd_pxpics_canopy_temp_estimate
+            name: Canopy Temp Estimate
+            secondary_info: Geschätzte Kronentemperatur (°C)
+          - entity: input_number.chadd_pxpics_leaf_temp_target
+            name: Leaf Temp Target
+            secondary_info: Zielwert Blatttemperatur (°C)
+          - entity: input_number.chadd_pxpics_leaf_temp_offset
+            name: Leaf Temp Offset
+            secondary_info: Offset zur Blatttemperatur (°C)
+          - entity: input_number.chadd_pxpics_radiation_estimate
+            name: Radiation Estimate
+            secondary_info: Strahlung (W/m²)
+          - entity: input_number.chadd_pxpics_wind_estimate
+            name: Wind Estimate
+            secondary_info: Windgeschwindigkeit (m/s)
+          - entity: input_number.chadd_pxpics_stomata_leq_estimate
+            name: Stomata Conductance
+            secondary_info: Stomata-Leitwert (mol/m²/s)
+          - entity: input_number.chadd_pxpics_canopy_fraction
+            name: Canopy Fraction
+            secondary_info: Kronenanteil (0-1)
+          - entity: input_number.chadd_pxpics_fractional_interception
+            name: Fractional Interception
+            secondary_info: Lichtabfangrate (0-1)
+          - entity: input_boolean.chadd_pxpics_transpiration_enabled
+            name: Transpiration Enabled
+            secondary_info: Transpiration-Schätzung aktiv?
+          - entity: input_select.chadd_pxpics_transpiration_method
+            name: Transpiration Method
+            secondary_info: Rechenmethode
+      - type: button
+        name: Manueller Run
+        entity: input_button.chadd_pxpics_manual_run_now
+        icon: mdi:play-circle-outline
+  - type: sections
+    path: charts
+    title: Charts
+    icon: mdi:finance
+    sections:
+      - type: grid
+        cards:
+          - type: custom:apexcharts-card
+            header:
+              show: false
+              title: Hydrostream Live Air Quality
+              show_states: true
+              colorize_states: true
+            chart_type: radialBar
+            span: {}
+            series:
+              - entity: sensor.operational_paw
+                name: PAW
+                max: 100
+                color: '#D4FF00'
+                show:
+                  legend_value: true
+              - entity: sensor.aktueller_dryback
+                name: DB
+                max: 65
+                color: '#FF6A00'
+                show:
+                  legend_value: true
+                  in_header: true
+              - entity: sensor.sdi12sensor_zone1_sdi12_vwc
+                name: VWC
+                max: 100
+                color: '#FFCC00'
+              - entity: sensor.sdi12sensor_zone1_sdi12_temperature
+                name: Temp
+                max: 25
+                color: '#FF5F1F'
+              - entity: sensor.sdi12sensor_zone1_sdi12_ec_ppm500
+                name: EC
+                max: 8
+                color: '#9DFF00'
+              - entity: sensor.hydrostream_temperatur
+                name: Air
+                max: 35
+                color: '#22D3EE'
+              - entity: sensor.hydrostream_luftfeuchtigkeit
+                name: RH
+                max: 100
+                color: '#00FFFF'
+              - entity: sensor.hydrostream_vpd
+                name: VPD
+                max: 2
+                color: '#A500B5'
+            apex_config:
+              chart:
+                height: 380
+              plotOptions:
+                radialBar:
+                  startAngle: -230
+                  endAngle: 70
+                  track:
+                    background: '#e7e7e7'
+                    strokeWidth: 3%
+                  dataLabels:
+                    name:
+                      show: false
+                    value:
+                      offsetY: 10
+                      color: '#111'
+                  hollow:
+                    margin: 10
+                    size: 30%
+                    background: transparent
+              legend:
+                show: true
+                position: top
+              stroke:
+                lineCap: round
+      - type: grid
+        cards:
+          - type: custom:apexcharts-card
+            header:
+              show: true
+              title: SDI-12 Zone 1 Substrat 24h
+              show_states: false
+              colorize_states: true
+            grid_options:
+              columns: full
+            graph_span: 24h
+            span:
+              start: day
+            now:
+              show: true
+              label: Jetzt
+            yaxis:
+              - id: vwc
+                min: ~20
+                max: ~85
+                decimals: 1
+              - id: ec
+                opposite: true
+                min: ~0
+                max: ~3
+                decimals: 2
+              - id: temp
+                min: ~10
+                max: ~35
+                decimals: 1
+            series:
+              - entity: sensor.sdi12sensor_zone1_sdi12_vwc
+                name: VWC %
+                color: '#4CAF50'
+                unit: '%'
+                yaxis_id: vwc
+                type: area
+                group_by:
+                  func: avg
+                  duration: 5m
+              - entity: sensor.sdi12sensor_zone1_sdi12_ec_ppm500
+                name: EC ppm500
+                color: '#2196F3'
+                unit: EC
+                yaxis_id: ec
+                type: area
+                group_by:
+                  func: avg
+                  duration: 5m
+              - entity: sensor.sdi12sensor_zone1_sdi12_temperature
+                name: Temp
+                color: '#FF9800'
+                unit: °C
+                yaxis_id: temp
+                type: area
+                group_by:
+                  func: avg
+                  duration: 5m
+            apex_config:
+              fill:
+                type: gradient
+                gradient:
+                  shadeIntensity: 1
+                  opacityFrom: 0.7
+                  opacityTo: 0.3
+                  stops:
+                    - 0
+                    - 90
+                    - 100
+              chart:
+                height: 350
+              legend:
+                position: top
+        column_span: 2
+      - type: grid
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: custom:mushroom-number-card
+                entity: input_number.chadd_pxpics_intent
+                name: Steering Intent
+                display_mode: slider
+                icon: mdi:target
+                icon_color: pink
+                fill_container: false
+                layout: horizontal
+                primary_info: name
+                secondary_info: last-changed
+                tap_action:
+                  action: toggle
+              - type: custom:mushroom-template-card
+                entity: sensor.chad_pxpics_intent_text
+                primary: '{{ states(''sensor.chadd_pxpics_intent_text'') }}'
+                icon: mdi:information-outline
+                tap_action:
+                  action: none
+                color: >-
+                  {{ 'green' if states('input_number.chadd_pxpics_intent') | int
+                  > 5 else 'red' }}
+                features_position: bottom
+          - type: custom:mushroom-template-card
+            entity: sensor.chadd_console
+            primary: >-
+              {% set action = state_attr(entity, 'action') | default('-', true)
+              %} {% set reason = state_attr(entity, 'reason') | default('-',
+              true) %} {{ action }} · {{ reason }}
+            secondary: >-
+              {% set vwc = state_attr(entity, 'vwc') | float(0) %} {% set ec =
+              state_attr(entity, 'ec') | int(0) %} {% set db =
+              state_attr(entity, 'drybackpct') | float(0) %} {% set db_target =
+              state_attr(entity, 'dryback_target') | float(0) %} {% set shot =
+              state_attr(entity, 'shotSize') | int(0) %} {% set pump =
+              state_attr(entity, 'pumpTime') | int(0) %} {% set profile =
+              state_attr(entity, 'profile_name') | default('-', true) %} {% set
+              cooldown = state_attr(entity, 'cooldown_active') | default(false)
+              %}
+
+              VWC {{ vwc | round(1) }} · EC {{ ec }} DB {{ db | round(1) }}% /
+              {{ db_target | round(1) }}% Shot {{ shot }} ml · Pump {{ pump }} s
+              {{ profile }} · Cooldown {{ 'ON' if cooldown else 'OFF' }}
+            multiline_secondary: true
+            icon: >-
+              {% set cooldown = state_attr(entity, 'cooldown_active') |
+              default(false) %} {% set vwc = state_attr(entity, 'vwc') |
+              float(0) %} {% set db = state_attr(entity, 'drybackpct') |
+              float(0) %} {% set db_target = state_attr(entity,
+              'dryback_target') | float(0) %}
+
+              {% if cooldown %}
+                mdi:snowflake-thermometer
+              {% elif vwc < 52 %}
+                mdi:water-alert
+              {% elif db > db_target %}
+                mdi:chart-line-variant
+              {% else %}
+                mdi:sprout
+              {% endif %}
+            icon_color: >-
+              {% set cooldown = state_attr(entity, 'cooldown_active') |
+              default(false) %} {% set vwc = state_attr(entity, 'vwc') |
+              float(0) %} {% set db = state_attr(entity, 'drybackpct') |
+              float(0) %} {% set db_target = state_attr(entity,
+              'dryback_target') | float(0) %}
+
+              {% if cooldown %}
+                blue
+              {% elif vwc < 52 %}
+                red
+              {% elif db > db_target %}
+                orange
+              {% else %}
+                green
+              {% endif %}
+            fill_container: true
+            layout: vertical
+            tap_action:
+              action: more-info
+            hold_action:
+              action: more-info
+            card_mod:
+              mushroom-state-info$: |
+                .container {
+                 --card-primary-font-size: 20px;
+                 --card-secondary-font-size: 20px;
+                 --card-primary-font-weight: 600;
+                 --card-secondary-font-weight: 500;
+                 }
+              style: |
+                ha-card {
+                  {% set cooldown = state_attr(config.entity, 'cooldown_active') | default(false) %}
+                  {% set vwc = state_attr(config.entity, 'vwc') | float(0) %}
+                  {% set db = state_attr(config.entity, 'drybackpct') | float(0) %}
+                  {% set db_target = state_attr(config.entity, 'dryback_target') | float(0) %}
+
+                  {% if cooldown %}
+                    --ha-card-border-color: rgba(3, 169, 244, 0.9);
+                    background: rgba(3, 169, 244, 0.08);
+                  {% elif vwc < 52 %}
+                    --ha-card-border-color: rgba(229, 57, 53, 0.9);
+                    background: rgba(229, 57, 53, 0.08);
+                  {% elif db > db_target %}
+                    --ha-card-border-color: rgba(251, 140, 0, 0.9);
+                    background: rgba(251, 140, 0, 0.08);
+                  {% else %}
+                    --ha-card-border-color: rgba(67, 160, 71, 0.9);
+                    background: rgba(67, 160, 71, 0.08);
+                  {% endif %}
+
+                  border: 1px solid var(--ha-card-border-color);
+                  border-radius: 16px;
+                }
+            grid_options:
+              columns: full
+          - type: custom:apexcharts-card
+            chart_type: radialBar
+            header:
+              show: false
+              title: Tankfüllstände
+              show_states: true
+              colorize_states: true
+            series:
+              - entity: sensor.operational_paw
+                name: RO-Tank
+                color: '#38bdf8'
+                min: 0
+                max: 100
+                show:
+                  in_header: true
+              - entity: sensor.aktueller_dryback
+                name: Mix-Tank
+                color: '#22c55e'
+                min: 0
+                max: 100
+                show:
+                  in_header: true
+            apex_config:
+              chart:
+                height: 150
+              legend:
+                show: true
+                floating: true
+                position: left
+                offsetY: 12
+                labels:
+                  useSeriesColors: true
+              plotOptions:
+                radialBar:
+                  startAngle: 180
+                  endAngle: 360
+                  hollow:
+                    size: 30%
+                    background: transparent
+                  track:
+                    background: '#1f2937'
+                  dataLabels:
+                    name:
+                      show: false
+                    value:
+                      show: false
+      - type: grid
+        cards:
+          - type: custom:apexcharts-card
+            experimental:
+              color_threshold: true
+            header:
+              show: true
+              title: VPD Stundenmatrix
+              show_states: false
+              colorize_states: true
+            graph_span: 24h
+            span:
+              start: day
+            now:
+              show: true
+              color: '#ffffff'
+              label: Jetzt
+            apex_config:
+              chart:
+                height: 120px
+                toolbar:
+                  show: false
+              legend:
+                show: false
+              grid:
+                show: true
+                strokeDashArray: 2
+              plotOptions:
+                bar:
+                  horizontal: false
+                  columnWidth: 88%
+                  borderRadius: 3
+                  borderRadiusApplication: end
+              xaxis:
+                labels:
+                  rotate: 0
+                  datetimeUTC: false
+                  format: HH
+              yaxis:
+                min: 0
+                max: 2.2
+                tickAmount: 5
+                decimalsInFloat: 2
+                title:
+                  text: VPD
+              dataLabels:
+                enabled: false
+              tooltip:
+                shared: false
+                intersect: true
+                x:
+                  format: HH:mm
+            series:
+              - entity: sensor.hydrostream_vpd
+                name: VPD
+                type: column
+                float_precision: 2
+                group_by:
+                  func: avg
+                  duration: 1h
+                show:
+                  legend_value: false
+                  in_header: raw
+                  header_color_threshold: true
+                color_threshold:
+                  - value: 0
+                    color: '#1d4ed8'
+                  - value: 0.4
+                    color: '#2563eb'
+                  - value: 0.8
+                    color: '#22c55e'
+                  - value: 1
+                    color: '#d4ff00'
+                  - value: 1.2
+                    color: '#f59e0b'
+                  - value: 1.6
+                    color: '#ef4444'
+          - type: vertical-stack
+            cards:
+              - type: custom:mushroom-title-card
+              - type: grid
+                columns: 2
+                square: false
+                cards:
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_vpd
+                    primary: "VPD\_ᵃⁱʳ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:leaf-maple
+                    icon_color: '#A500B5'
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_air_humidity
+                    primary: "RH\_ᵃⁱʳ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:water-percent
+                    icon_color: '#00FFFF'
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_air_temperature
+                    primary: "Temp\_ᵃⁱʳ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:thermometer
+                    icon_color: '#22D3EE'
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_co2
+                    primary: "CO₂\_ᵃⁱʳ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:molecule-co2
+                    icon_color: grey
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_dli
+                    primary: "DLI\_ˡⁱᵍʰᵗ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:weather-sunny
+                    icon_color: yellow
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_dryback
+                    primary: Dryback %
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:water-off
+                    icon_color: '#FF6A00'
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_leaftemp
+                    primary: "Temp\_ˡᵉᵃᶠ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:leaf
+                    icon_color: '#CC11F0'
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_substrate_temperature
+                    primary: "Temp\_ˢᵘᵇˢᵗʳᵃᵗᵉ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:thermometer-lines
+                    icon_color: '#FF5F1F'
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_runoff_ec
+                    primary: "EC\_ʳᵘⁿᵒᶠᶠ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:arrow-down-bold
+                    icon_color: '#FF008D'
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_runoff_ph
+                    primary: "pH\_ʳᵘⁿᵒᶠᶠ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:flask-outline
+                    icon_color: '#FF1D84'
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_runoff_temperature
+                    primary: "Temp\_ʳᵘⁿᵒᶠᶠ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:thermometer-chevron-down
+                    icon_color: '#F96363'
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_substrate_ec
+                    primary: "EC\_ˢᵘᵇˢᵗʳᵃᵗᵉ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:sprout
+                    icon_color: '#9DFF00'
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_substrate_vwc
+                    primary: "VWC\_ˢᵘᵇˢᵗʳᵃᵗᵉ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:waves-arrow-up
+                    icon_color: '#FFCC00'
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_tank_ec
+                    primary: "EC\_ᵗᵃⁿᵏ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:beaker-outline
+                    icon_color: '#B0FF00'
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_tank_orp
+                    primary: "ORP\_ᵗᵃⁿᵏ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:flash
+                    icon_color: '#7CFC00'
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_tank_ph
+                    primary: "pH\_ᵗᵃⁿᵏ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state"_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:flask
+                    icon_color: '#00B2A9'
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_tank_temperature
+                    primary: "Temp\_ᵗᵃⁿᵏ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:thermometer-water
+                    icon_color: '#06B6D4'
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+                  - type: custom:mushroom-template-card
+                    entity: sensor.sdi12sensor_emulator8h_1_wifi_rssi
+                    primary: "WiFi\_ᴿˢˢᴵ"
+                    secondary: >-
+                      {{ states(entity) }} {{ state_attr(entity,
+                      'unit_of_measurement') or '' }}
+                    icon: mdi:wifi
+                    icon_color: blue-grey
+                    layout: horizontal
+                    fill_container: true
+                    tap_action:
+                      action: more-info
+            card_mod:
+              style: |
+                ha-card {
+                  border-radius: 18px;
+                }
+
+                mushroom-state-info {
+                  padding-top: 2px;
+                  padding-bottom: 2px;
+                }
+
+                mushroom-state-info .container {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: flex-start;
+                  gap: 2px;
+                }
+
+                mushroom-state-info .primary {
+                  font-size: 1.18rem !important;
+                  font-weight: 700 !important;
+                  line-height: 1.05 !important;
+                  letter-spacing: 0 !important;
+                }
+
+                mushroom-state-info .secondary {
+                  font-size: 0.98rem !important;
+                  line-height: 1.1 !important;
+                  opacity: 0.92;
+                }
+          - type: custom:apexcharts-card
+            experimental:
+              color_threshold: true
+            header:
+              show: true
+              title: VPD Stundenmatrix
+              show_states: false
+              colorize_states: true
+            graph_span: 24h
+            span:
+              start: day
+            now:
+              show: true
+              color: '#ffffff'
+              label: Jetzt
+            apex_config:
+              chart:
+                height: 230px
+                toolbar:
+                  show: false
+              legend:
+                show: false
+              grid:
+                show: true
+                strokeDashArray: 2
+              plotOptions:
+                bar:
+                  horizontal: false
+                  columnWidth: 88%
+                  borderRadius: 3
+                  borderRadiusApplication: end
+              xaxis:
+                labels:
+                  rotate: 0
+                  datetimeUTC: false
+                  format: HH
+              yaxis:
+                min: 0
+                max: 2.2
+                tickAmount: 5
+                decimalsInFloat: 2
+                title:
+                  text: VPD
+              dataLabels:
+                enabled: false
+              tooltip:
+                shared: false
+                intersect: true
+                x:
+                  format: HH:mm
+            series:
+              - entity: sensor.hydrostream_vpd
+                name: VPD
+                type: column
+                float_precision: 2
+                group_by:
+                  func: avg
+                  duration: 1h
+                show:
+                  legend_value: false
+                  in_header: raw
+                  header_color_threshold: true
+                color_threshold:
+                  - value: 0
+                    color: '#1d4ed8'
+                  - value: 0.4
+                    color: '#2563eb'
+                  - value: 0.8
+                    color: '#22c55e'
+                  - value: 1
+                    color: '#d4ff00'
+                  - value: 1.2
+                    color: '#f59e0b'
+                  - value: 1.6
+                    color: '#ef4444'
+      - type: grid
+        cards:
+          - type: custom:apexcharts-card
+            header:
+              show: true
+              title: Hydrostream Slope Chart (Multi Group)
+              show_states: false
+              colorize_states: true
+            graph_span: 12h
+            span:
+              start: day
+              offset: '-12h'
+            grid_options:
+              columns: full
+            now:
+              show: true
+              label: Jetzt
+            yaxis:
+              - id: temp
+                min: ~15
+                max: ~35
+                decimals: 1
+              - id: humidity
+                opposite: true
+                min: ~30
+                max: ~90
+                decimals: 0
+              - id: vpd
+                min: 0
+                max: ~2
+                decimals: 2
+            series:
+              - entity: sensor.hydrostream_temperatur
+                name: Temperatur
+                color: '#ff6384'
+                unit: °C
+                yaxis_id: temp
+                curve: straight
+                stroke_width: 1
+                show:
+                  extremas: true
+              - entity: sensor.hydrostream_luftfeuchtigkeit
+                name: Luftfeuchtigkeit
+                color: '#36a2eb'
+                unit: '%'
+                yaxis_id: humidity
+                curve: straight
+                stroke_width: 1
+                show:
+                  extremas: true
+              - entity: sensor.hydrostream_vpd
+                name: VPD
+                color: '#4bc0c0'
+                unit: kPa
+                yaxis_id: vpd
+                curve: straight
+                stroke_width: 0.05
+                show:
+                  extremas: true
+            apex_config:
+              chart:
+                height: 350
+                type: line
+              stroke:
+                curve: straight
+                width: 2
+              markers:
+                size: 0.005
+                stroke_width: 1
+              legend:
+                position: top
+              grid:
+                strokeDashArray: 5
+          - type: custom:apexcharts-card
+            header:
+              show: true
+              title: sdi12sensor-emulator8h-1 · Substrat / Runoff
+              show_states: true
+              colorize_states: true
+            graph_span: 24h
+            span:
+              start: day
+            apex_config:
+              chart:
+                height: 320px
+              legend:
+                show: false
+                position: top
+              grid:
+                show: true
+                strokeDashArray: 0.5
+            yaxis:
+              - id: moisture
+                min: 0
+                max: 100
+                decimals: 0
+                apex_config:
+                  title:
+                    text: '%'
+              - id: ec
+                opposite: true
+                decimals: 2
+                apex_config:
+                  title:
+                    text: EC
+              - id: temp
+                decimals: 1
+                show: false
+                apex_config:
+                  title:
+                    text: °C
+              - id: ph
+                opposite: true
+                show: false
+                decimals: 2
+                apex_config:
+                  title:
+                    text: pH
+            series:
+              - entity: sensor.sdi12sensor_emulator8h_1_substrate_vwc
+                name: Substrate VWC
+                yaxis_id: moisture
+                color: '#3b82f6'
+                stroke_width: 1
+              - entity: sensor.sdi12sensor_emulator8h_1_substrate_ec
+                name: Substrate EC
+                yaxis_id: ec
+                color: '#8b5cf6'
+                stroke_width: 1
+              - entity: sensor.sdi12sensor_emulator8h_1_runoff_ec
+                name: RunOff EC
+                yaxis_id: ec
+                color: '#ec4899'
+                stroke_width: 1
+              - entity: sensor.sdi12sensor_emulator8h_1_substrate_temperature
+                name: Substrate Temperature
+                yaxis_id: temp
+                color: '#ef4444'
+                stroke_width: 1
+          - type: custom:apexcharts-card
+            header:
+              show: true
+              title: sdi12sensor-emulator8h-1 · Klima
+              show_states: true
+              colorize_states: true
+            graph_span: 24h
+            span:
+              start: day
+            apex_config:
+              chart:
+                height: 320px
+              legend:
+                show: false
+                position: top
+              grid:
+                show: true
+                strokeDashArray: 3
+            yaxis:
+              - id: temp
+                decimals: 1
+                apex_config:
+                  title:
+                    text: °C
+              - id: humidity
+                opposite: true
+                min: 0
+                max: 100
+                decimals: 0
+                apex_config:
+                  title:
+                    text: RH %
+              - id: co2
+                opposite: true
+                decimals: 0
+                show: false
+                apex_config:
+                  title:
+                    text: ppm
+              - id: vpd
+                decimals: 2
+                show: false
+                apex_config:
+                  title:
+                    text: kPa
+            series:
+              - entity: sensor.sdi12sensor_emulator8h_1_air_temperature
+                name: Air Temperature
+                yaxis_id: temp
+                color: '#ef4444'
+                stroke_width: 1
+              - entity: sensor.sdi12sensor_emulator8h_1_air_humidity
+                name: Air Humidity
+                yaxis_id: humidity
+                color: '#3b82f6'
+                stroke_width: 2
+              - entity: sensor.sdi12sensor_emulator8h_1_co2
+                name: CO2
+                yaxis_id: co2
+                color: '#22c55e'
+                stroke_width: 1
+                show:
+                  legend_value: false
+              - entity: sensor.sdi12sensor_emulator8h_1_vpd
+                name: VPD
+                yaxis_id: vpd
+                color: '#eab308'
+                stroke_width: 1
+              - entity: sensor.sdi12sensor_emulator8h_1_dli
+                name: DLI
+                yaxis_id: vpd
+                color: '#64748b'
+                stroke_width: 1
+                curve: smooth
+                show:
+                  legend_value: false
+          - type: custom:apexcharts-card
+            header:
+              show: true
+              title: sdi12sensor-emulator8h-1 · Tank / System
+              show_states: true
+              colorize_states: true
+            graph_span: 24h
+            span:
+              start: day
+            apex_config:
+              chart:
+                height: 320px
+              legend:
+                show: false
+                position: top
+              grid:
+                show: true
+                strokeDashArray: 3
+            yaxis:
+              - id: ec
+                decimals: 2
+                apex_config:
+                  title:
+                    text: EC
+              - id: ph
+                opposite: true
+                decimals: 2
+                apex_config:
+                  title:
+                    text: pH
+              - id: temp
+                decimals: 1
+                show: false
+                apex_config:
+                  title:
+                    text: °C
+              - id: misc
+                opposite: true
+                show: false
+                decimals: 0
+                apex_config:
+                  title:
+                    text: misc
+            series:
+              - entity: sensor.sdi12sensor_emulator8h_1_tank_ec
+                name: Tank EC
+                yaxis_id: ec
+                color: '#22c55e'
+                stroke_width: 1
+              - entity: sensor.sdi12sensor_emulator8h_1_tank_temperature
+                name: Tank Temperature
+                yaxis_id: temp
+                color: '#ef4444'
+                stroke_width: 1
+                curve: smooth
+              - entity: sensor.sdi12sensor_emulator8h_1_tank_orp
+                name: Tank ORP
+                yaxis_id: misc
+                color: '#8b5cf6'
+                stroke_width: 1
+              - entity: sensor.sdi12sensor_emulator8h_1_klima_osmotic_potential
+                name: Klima Osmotic Potential
+                yaxis_id: misc
+                color: '#f59e0b'
+                stroke_width: 1
+              - entity: sensor.sdi12sensor_emulator8h_1_wifi_rssi
+                name: WiFi RSSI
+                yaxis_id: misc
+                color: '#64748b'
+                stroke_width: 1
+                curve: smooth
+        column_span: 3
+      - type: grid
+        cards:
+          - type: heading
+            heading: Neuer Abschnitt
+          - type: custom:apexcharts-card
+            graph_span: 36h
+            span:
+              start: day
+            header:
+              show: true
+              title: Substrat
+              show_states: true
+              colorize_states: true
+            grid_options:
+              columns: full
+            now:
+              show: true
+              label: Jetzt
+            apex_config:
+              chart:
+                height: 320
+              legend:
+                show: true
+              stroke:
+                curve: smooth
+                width: 2
+              tooltip:
+                shared: true
+                intersect: false
+              yaxis:
+                - id: vwc
+                  min: 20
+                  max: 80
+                  decimalsInFloat: 1
+                  title:
+                    text: VWC %
+                - id: ec
+                  opposite: true
+                  min: 300
+                  max: 2500
+                  decimalsInFloat: 0
+                  title:
+                    text: EC µS/cm
+                - id: temp
+                  opposite: true
+                  min: 15
+                  max: 30
+                  decimalsInFloat: 1
+                  title:
+                    text: Temp °C
+            series:
+              - entity: sensor.sdi12sensor_greenhouse1_sdi12_vwc
+                name: VWC
+                yaxis_id: vwc
+                type: line
+                color: '#00bcd4'
+                stroke_width: 3
+                float_precision: 1
+                group_by:
+                  duration: 10min
+                  func: avg
+                show:
+                  legend_value: true
+                  in_header: false
+              - entity: sensor.sdi12sensor_greenhouse1_sdi12_raw_ec
+                name: EC
+                yaxis_id: ec
+                type: line
+                color: '#8bc34a'
+                stroke_width: 3
+                float_precision: 0
+                group_by:
+                  duration: 10min
+                  func: avg
+                show:
+                  legend_value: true
+                  in_header: false
+              - entity: sensor.sdi12sensor_greenhouse1_sdi12_temperature
+                name: Temperatur
+                yaxis_id: temp
+                type: line
+                color: '#ff9800'
+                stroke_width: 2
+                float_precision: 1
+                group_by:
+                  duration: 10min
+                  func: avg
+                show:
+                  legend_value: true
+                  in_header: false
+          - type: custom:apexcharts-card
+            header:
+              show: true
+              title: SDI-12 Zone 1 Substrat 24h
+              show_states: true
+              colorize_states: true
+            grid_options:
+              columns: full
+            graph_span: 24h
+            span:
+              start: day
+            now:
+              show: true
+              label: Jetzt
+            yaxis:
+              - id: vwc
+                min: ~20
+                max: ~85
+                decimals: 1
+              - id: ec
+                opposite: true
+                min: ~0
+                max: ~3
+                decimals: 2
+              - id: temp
+                min: ~10
+                max: ~35
+                decimals: 1
+            series:
+              - entity: sensor.sdi12sensor_zone1_sdi12_vwc
+                name: VWC %
+                color: '#4CAF50'
+                unit: '%'
+                yaxis_id: vwc
+                type: area
+                group_by:
+                  func: avg
+                  duration: 5m
+              - entity: sensor.sdi12sensor_zone1_sdi12_ec_ppm500
+                name: EC ppm500
+                color: '#2196F3'
+                unit: EC
+                yaxis_id: ec
+                type: area
+                group_by:
+                  func: avg
+                  duration: 5m
+              - entity: sensor.sdi12sensor_zone1_sdi12_temperature
+                name: Temp
+                color: '#FF9800'
+                unit: °C
+                yaxis_id: temp
+                type: area
+                group_by:
+                  func: avg
+                  duration: 5m
+            apex_config:
+              fill:
+                type: gradient
+                gradient:
+                  shadeIntensity: 1
+                  opacityFrom: 0.7
+                  opacityTo: 0.3
+                  stops:
+                    - 0
+                    - 90
+                    - 100
+              chart:
+                height: 350
+              legend:
+                position: top
+        column_span: 4
+      - type: grid
+        cards:
+          - type: heading
+            heading: Neuer Abschnitt
+          - type: custom:apexcharts-card
+            header:
+              show: false
+              title: Hydrostream Live Air Quality
+              show_states: true
+              colorize_states: true
+            chart_type: radialBar
+            span: {}
+            series:
+              - entity: sensor.operational_paw
+                name: PAW
+                max: 100
+                color: '#D4FF00'
+                show:
+                  legend_value: false
+              - entity: sensor.aktueller_dryback
+                name: Dryback
+                max: 65
+                color: '#FF6A00'
+                show:
+                  legend_value: false
+                  in_header: raw
+              - entity: sensor.sdi12sensor_zone1_sdi12_vwc
+                name: VWC
+                max: 100
+                color: '#FFCC00'
+                show:
+                  legend_value: false
+              - entity: sensor.sdi12sensor_zone1_sdi12_temperature
+                name: Substrat
+                max: 25
+                color: '#FF5F1F'
+                show:
+                  legend_value: false
+              - entity: sensor.sdi12sensor_zone1_sdi12_ec_ppm500
+                name: EC
+                max: 8
+                color: '#9DFF00'
+                show:
+                  legend_value: false
+              - entity: sensor.hydrostream_temperatur
+                name: Air
+                max: 35
+                color: '#22D3EE'
+                show:
+                  legend_value: false
+              - entity: sensor.hydrostream_luftfeuchtigkeit
+                name: RHF
+                max: 100
+                color: '#00FFFF'
+                show:
+                  legend_value: false
+              - entity: sensor.hydrostream_vpd
+                name: VPD
+                max: 2
+                color: '#A500B5'
+                show:
+                  legend_value: false
+            apex_config:
+              plotOptions:
+                radialBar:
+                  startAngle: -230
+                  endAngle: 70
+                  track:
+                    background: '#e7e7e7'
+                    strokeWidth: 3%
+                  dataLabels:
+                    name:
+                      show: true
+                    value:
+                      show: true
+                      offsetY: 10
+                      color: '#111'
+                      formatter: |
+                        function(val, opts) {
+                          const cfg = opts.w.config.series[opts.seriesIndex];
+                          const min = cfg.min ?? 0;
+                          const max = cfg.max ?? 100;
+                          const raw = min + (val / 100) * (max - min);
+
+                          if (cfg.name === "VPD") return raw.toFixed(2);
+                          if (cfg.name === "EC") return raw.toFixed(2);
+                          if (cfg.name === "Substrat") return raw.toFixed(1);
+                          if (cfg.name === "Air") return raw.toFixed(1);
+                          if (cfg.name === "Dryback") return raw.toFixed(1);
+                          return raw.toFixed(0);
+                        }
+                  hollow:
+                    margin: 10
+                    size: 30%
+                    background: transparent
+              legend:
+                show: true
+                position: top
+              stroke:
+                lineCap: round
+        column_span: 1
+        background:
+          color: pink
+          opacity: 50
+      - type: grid
+        cards:
+          - type: heading
+            heading: Neuer Abschnitt
+          - type: custom:apexcharts-card
+            experimental:
+              color_threshold: true
+            header:
+              show: true
+              title: VPD Stundenmatrix
+              show_states: true
+              colorize_states: true
+            graph_span: 24h
+            span:
+              start: day
+            now:
+              show: true
+              color: '#ffffff'
+              label: Jetzt
+            apex_config:
+              chart:
+                height: 280px
+                toolbar:
+                  show: false
+              legend:
+                show: false
+              grid:
+                show: true
+                strokeDashArray: 2
+              plotOptions:
+                bar:
+                  horizontal: false
+                  columnWidth: 88%
+                  borderRadius: 3
+                  borderRadiusApplication: end
+              xaxis:
+                labels:
+                  rotate: 0
+                  datetimeUTC: false
+                  format: HH
+              yaxis:
+                min: 0
+                max: 2.2
+                tickAmount: 5
+                decimalsInFloat: 2
+                title:
+                  text: VPD
+              dataLabels:
+                enabled: false
+              tooltip:
+                shared: false
+                intersect: true
+                x:
+                  format: HH:mm
+            series:
+              - entity: sensor.hydrostream_vpd
+                name: VPD
+                type: column
+                float_precision: 2
+                group_by:
+                  func: avg
+                  duration: 1h
+                show:
+                  legend_value: false
+                  in_header: raw
+                  header_color_threshold: true
+                color_threshold:
+                  - value: 0
+                    color: '#1d4ed8'
+                  - value: 0.4
+                    color: '#2563eb'
+                  - value: 0.8
+                    color: '#22c55e'
+                  - value: 1
+                    color: '#d4ff00'
+                  - value: 1.2
+                    color: '#f59e0b'
+                  - value: 1.6
+                    color: '#ef4444'
+        column_span: 2
+    header:
+      card:
+        type: markdown
+        content: >-
+          # Hello {{ user }}, <font color="green" size="4">{{
+          states('sensor.industry_secrets') }}</font>
+
+
+          **Canopy stable. Root zone in range.**  
+
+          VWC consistent, EC controlled, irrigation steady — no visible stress,
+          balanced growth.
+
+
+          **Canopy:** stable | **Stress signal:** none visible | **Root zone:**
+          target range maintained | **VWC:** consistent
+        text_only: true
+      layout: responsive
+      badges_position: top
+      badges_wrap: scroll
+    badges:
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        name: VWC
+        entity: sensor.sdi12sensor_zone1_sdi12_vwc
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.sdi12sensor_zone1_sdi12_temperature
+        name: TempSub
+        icon: ''
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.aktueller_dryback
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.operational_paw
+        show_entity_picture: false
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.hydrostream_luftfeuchtigkeit
+        name: RHF
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.hydrostream_vpd
+        name: VPD
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: sensor.hydrostream_temperatur
+        name: Air
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sun.sun
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: weather.forecast_home
+        show_entity_picture: false
+    footer:
+      max_width: 1600
+  - type: sections
+    max_columns: 4
+    title: Osmotic
+    path: osmotic
+    icon: mdi:abacus
+    sections:
+      - type: custom:mushroom-title-card
+        subtitle: Osmotic Experiments
+        cards:
+          - type: heading
+            heading: Transpiration & Osmotik
+        column_span: 1
+        background:
+          color: red
+          opacity: 50
+      - type: custom:mushroom-select-card
+        entity: input_select.chadd_pxpics_control_mode
+        name: Control Mode
+        icon: mdi:state-machine
+        fill_container: true
+      - type: custom:mushroom-select-card
+        entity: input_select.chadd_pxpics_primary_control
+        name: Primary Control
+        icon: mdi:water-percent
+        fill_container: true
+      - type: custom:mushroom-select-card
+        entity: input_select.chadd_pxpics_fallback_mode
+        name: Fallback Mode
+        icon: mdi:alert-circle-outline
+        fill_container: true
+      - type: custom:mushroom-select-card
+        entity: input_select.chadd_pxpics_transpiration_method
+        name: Transpiration Method
+        icon: mdi:weather-windy
+        fill_container: true
+      - type: custom:mushroom-select-card
+        entity: input_select.chadd_pxpics_transpiration_source
+        name: Transpiration Source
+        icon: mdi:water-outline
+        fill_container: true
+      - type: custom:mushroom-entity-card
+        entity: input_boolean.chadd_pxpics_transpiration_enabled
+        name: Transpiration Enabled
+        icon: mdi:water-outline
+        tap_action:
+          action: toggle
+        fill_container: true
+      - type: custom:mushroom-entity-card
+        entity: input_boolean.chadd_pxpics_manual_override_enabled
+        name: Manual Override
+        icon: mdi:hand-extended
+        tap_action:
+          action: toggle
+        fill_container: true
+      - type: custom:mushroom-entity-card
+        entity: input_boolean.chadd_pxpics_dry_run_mode
+        name: Dry Run
+        icon: mdi:test-tube
+        tap_action:
+          action: toggle
+        fill_container: true
+      - type: custom:mushroom-entity-card
+        entity: input_boolean.chadd_pxpics_skip_next_shot
+        name: Skip Next Shot
+        icon: mdi:skip-next
+        tap_action:
+          action: toggle
+        fill_container: true
+      - type: custom:mushroom-entity-card
+        entity: input_boolean.chadd_pxpics_fallback_alert_enabled
+        name: Fallback Alert
+        icon: mdi:bell-alert
+        tap_action:
+          action: toggle
+        fill_container: true
+      - type: custom:mushroom-entity-card
+        entity: input_boolean.chadd_pxpics_decision_log_enabled
+        name: Decision Log
+        icon: mdi:book-open-variant
+        tap_action:
+          action: toggle
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_transpiration_rate_estimate
+        name: Transpiration Estimate
+        icon: mdi:water-minus
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_transpiration_rate_measured
+        name: Transpiration Measured
+        icon: mdi:scale-balance
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_transpiration_rate_blended
+        name: Transpiration Blended
+        icon: mdi:mix
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_canopy_temp_estimate
+        name: Canopy Temp Estimate
+        icon: mdi:thermometer
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_leaf_temp_target
+        name: Leaf Temp Target
+        icon: mdi:leaf
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_leaf_temp_offset
+        name: Leaf Temp Offset
+        icon: mdi:thermometer-minus
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_vpd_estimate
+        name: VPD Estimate
+        icon: mdi:weather-windy
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_radiation_estimate
+        name: Radiation Estimate
+        icon: mdi:white-balance-sunny
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_wind_estimate
+        name: Wind Estimate
+        icon: mdi:weather-windy
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_stomata_leq_estimate
+        name: Stomata Conductance
+        icon: mdi:leaf
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_ec_target
+        name: EC Target
+        icon: mdi:flash
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_ec_min
+        name: EC Min
+        icon: mdi:flash-alert
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_ec_max
+        name: EC Max
+        icon: mdi:flash-alert
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_ec_kpa_per_ds
+        name: EC to kPa Factor
+        icon: mdi:calculator
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_osmotic_potential_target
+        name: Osmotic Potential Target
+        icon: mdi:alpha-o-box
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_osmotic_potential_min
+        name: Osmotic Potential Min
+        icon: mdi:alpha-o-box-outline
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_osmotic_potential_max
+        name: Osmotic Potential Max
+        icon: mdi:alpha-o-box-outline
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_leaching_fraction_target
+        name: Leaching Fraction Target
+        icon: mdi:water-percent
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_drainage_target_pct
+        name: Drainage Target
+        icon: mdi:cup-water
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_dryback_target_pct
+        name: Dryback Target
+        icon: mdi:water-percent-alert
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_vwc_fc_ref
+        name: VWC FC Ref
+        icon: mdi:numeric
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_intent
+        name: Intent
+        icon: mdi:numeric
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_intent_profile_index
+        name: Intent Profile Index
+        icon: mdi:format-list-numbered
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_shot_size_ml
+        name: Shot Size
+        icon: mdi:cup-water
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_pump_time
+        name: Pump Time
+        icon: mdi:pump
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_min_time_between_shots
+        name: Min Time Between Shots
+        icon: mdi:timer-outline
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_max_pump_time
+        name: Max Pump Time
+        icon: mdi:timer-cog
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_sensor_timeout_minutes
+        name: Sensor Timeout
+        icon: mdi:signal-off
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_canopy_fraction
+        name: Canopy Fraction
+        icon: mdi:chart-bell-curve
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_fractional_interception
+        name: Fractional Interception
+        icon: mdi:sun-wireless
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_air_temp
+        name: Air Temperature
+        icon: mdi:thermometer
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_leaf_width
+        name: Leaf Width
+        icon: mdi:ruler
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_boundary_layer_conductance
+        name: Boundary Layer Conductance
+        icon: mdi:fan
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-number-card
+        entity: input_number.chadd_pxpics_plant_density
+        name: Plant Density
+        icon: mdi:square-multiple
+        display_mode: slider
+        fill_container: true
+      - type: custom:mushroom-template-card
+        primary: Last blocker
+        secondary: '{{ states(''input_text.chadd_pxpics_last_blocker_reason'') }}'
+        icon: mdi:alert-circle
+        fill_container: true
+      - type: custom:mushroom-template-card
+        primary: Last irrigation
+        secondary: '{{ states(''input_datetime.chadd_pxpics_last_irrigation'') }}'
+        icon: mdi:clock-outline
+        fill_container: true
+      - type: custom:mushroom-template-card
+        primary: Last irrigation of day
+        secondary: '{{ states(''input_datetime.chadd_pxpics_last_irrigation_of_day'') }}'
+        icon: mdi:calendar-clock
+        fill_container: true
+      - type: custom:mushroom-template-card
+        primary: Calibration date
+        secondary: '{{ states(''input_datetime.chadd_pxpics_calibration_date'') }}'
+        icon: mdi:calendar
+        fill_container: true
+    header:
+      card:
+        type: markdown
+        text_only: true
+        content: |-
+          # Hallo {{ user }} 
+          Chaos Mode Activated ✨
+  - type: sidebar
+    path: 24h
+    title: 24h
+    icon: mdi:chart-waterfall
+    background:
+      opacity: 33
+      alignment: center
+      size: cover
+      repeat: no-repeat
+      attachment: scroll
+      image:
+        media_content_id: media-source://image_upload/73d44e6a6fda0b11abd5d0043596c351
+        media_content_type: image/png
+        metadata:
+          title: 1774994620734.png
+          thumbnail: /api/image/serve/73d44e6a6fda0b11abd5d0043596c351/256x256
+          media_class: image
+          navigateIds:
+            - {}
+            - media_content_type: app
+              media_content_id: media-source://image_upload
+    cards: []

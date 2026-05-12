@@ -1,0 +1,36 @@
+# version: as of January 2023, https://docs.docker.com/compose/compose-file/
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:openssl
+    container_name: mosquitto
+    networks:
+      default:
+        ipv4_address: 192.168.178.176
+    volumes:
+      - /mnt/ssd/docker/mosquitto/config:/mosquitto/config:rw		#adjust the path to your ssd
+      - /mnt/ssd/docker/mosquitto/data:/mosquitto/data:rw		#adjust the path to your ssd
+      - /mnt/ssd/docker/mosquitto/log:/mosquitto/log:rw			#adjust the path to your ssd
+
+    restart: unless-stopped
+    # mosquitto port specifications: https://test.mosquitto.org/ bzw. https://de.wikipedia.org/wiki/MQTT
+    ports:
+      - target: 1883
+        host_ip: 0.0.0.0
+        published: 1883
+        mode: host
+
+# Volumes for persisting data
+volumes:
+  config:
+    driver: local
+  data:
+    driver: local
+  log:
+    driver: local
+
+# Network specifications
+networks:
+  default:
+    name: macvlan1                                #Adjust the name for MacVlan according to your environment
+    external: true

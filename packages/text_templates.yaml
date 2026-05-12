@@ -1,0 +1,24 @@
+template:
+  - sensor:
+      - name: "Chadd PXPics Intent Text"
+        unique_id: chadd_pxpics_intent_text
+        state: >
+          {% set raw = states('input_number.chadd_pxpics_intent') %}
+          {% if raw == 'unknown' or raw == 'unavailable' %}
+            Unbekannt
+          {% else %}
+            {% set v = raw | float(0) | int %}
+            {% set map = {
+              1: '1 - ganz niedrig',
+              2: '2 - sehr niedrig',
+              3: '3 - niedrig',
+              4: '4 - eher niedrig',
+              5: '5 - mittel',
+              6: '6 - etwas höher',
+              7: '7 - hoch',
+              8: '8 - sehr hoch',
+              9: '9 - fast maximal',
+              10: '10 - maximal'
+            } %}
+            {{ map.get(v, 'Stufe ' ~ v ~ ' (nicht definiert)') }}
+          {% endif %}

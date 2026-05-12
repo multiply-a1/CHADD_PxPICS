@@ -1,0 +1,27 @@
+mqtt:
+  sensor:
+    - name: "Chadd Console"
+      unique_id: mqtt_console_zone1
+      state_topic: "grow/CHADD_PXPICS"
+      icon: mdi:sprout
+      value_template: >
+        {% set reason = value_json.reason | default(value_json.reasons | default('-')) %}
+        {% set cooldown = value_json.cooldown_active | default(false) %}
+        {{ value_json.action | default('-') ~
+           " | " ~ reason ~
+           " | VWC " ~ (value_json.vwc | default(0) | round(1)) ~
+           " | EC " ~ (value_json.ec | default(0)) }}
+      json_attributes_topic: "grow/CHADD_PXPICS"
+      json_attributes_template: >
+        {
+          "action": {{ value_json.action | default('', true) | tojson }},
+          "reason": {{ value_json.reason | default(value_json.reasons | default('', true), true) | tojson }},
+          "vwc": {{ value_json.vwc | default(none) | tojson }},
+          "ec": {{ value_json.ec | default(none) | tojson }},
+          "drybackpct": {{ value_json.drybackPct | default(none) | tojson }},
+          "dryback_target": {{ value_json.drybackTarget | default(none) | tojson }},
+          "shotSize": {{ value_json.shotSize | default(none) | tojson }},
+          "pumpTime": {{ value_json.pumpTime | default(none) | tojson }},
+          "profile_name": {{ value_json.profileName | default('', true) | tojson }},
+          "cooldown_active": {{ value_json.cooldown_active | default(false) | tojson }}
+        }

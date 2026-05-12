@@ -1,0 +1,6 @@
+mqtt:
+  sensor:
+    - name: "MQTT-Console"
+      state_topic: "grow/CHADD_PXPICS"
+      value_template: >
+        {{ "VWC: " ~ value_json.vwc ~ " | EC: " ~ value_json.ec ~ " | DB: " ~ (value_json.drybackPct | round(1)) ~ "%" ~ " | Target: " ~ (value_json.targetVwc | round(1)) ~ " | Band: " ~ (value_json.withinSteeringBand | string) ~ " | Floor: " ~ (value_json.floorOK | string) ~ " | Shots: " ~ value_json.phaseState.shotsSent ~ " | Intent: " ~ value_json.intent ~ " | Phase: " ~ value_json.activePhase }}

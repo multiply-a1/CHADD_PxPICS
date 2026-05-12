@@ -1,0 +1,19 @@
+services:
+  nodered:
+    image: nodered/node-red:latest
+    container_name: nodered
+    restart: unless-stopped
+    ports:
+      - 1880:1880
+    environment:
+      - TZ=Europe/Berlin
+    volumes:
+      - /mnt/ssd/docker/node-red/data:/data		#adjust the path to your ssd
+    networks:
+      default:
+        ipv4_address: 192.168.178.177
+
+networks:
+  default:
+    name: macvlan1
+    external: true

@@ -1,0 +1,22 @@
+services:
+  homeassistant:
+    image: homeassistant/home-assistant
+    container_name: Home-Assistant
+    mem_limit: 8g
+    cpu_shares: 768
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+     test: curl -f http://localhost:8123/ || exit 1
+    volumes:
+      - /mnt/ssd/docker/homeassistant:/config:rw   #Adjust to your SSD path
+    environment:
+      TZ: Europe/Bucharest
+    restart: on-failure:5
+    networks:
+     default:
+        ipv4_address: 192.168.178.175    #Adjust IP address according to your environment
+networks:
+  default:
+    name: macvlan1                                #Adjust the name for MacVlan according to your environment
+    external: true

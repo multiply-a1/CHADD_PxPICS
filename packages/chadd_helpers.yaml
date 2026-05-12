@@ -1,0 +1,753 @@
+# CHADD PXPICS Home Assistant package
+# Version: 0.71 Osmotic Steering
+# Purpose: helper entities for Node-RED driven irrigation control with AROYA intent and phase handling
+
+input_select:
+  chadd_pxpics_control_mode:
+    name: CHADD PXPICS Control Mode
+    options:
+      - auto
+      - assist
+      - manual
+      - osmotic_steering
+    icon: mdi:state-machine
+
+  chadd_pxpics_fallback_mode:
+    name: CHADD PXPICS Fallback Mode
+    options:
+      - pause_only
+      - timed_survival
+      - alert_only
+    icon: mdi:alert-circle-outline
+
+  chadd_pxpics_primary_control:
+    name: CHADD PXPICS Primary Control
+    options:
+      - dryback_first
+      - vwc_first
+      - hybrid
+      - osmotic_first
+    icon: mdi:water-percent
+
+  chadd_pxpics_phase_mode:
+    name: CHADD PXPICS Phase Mode
+    options:
+      - p0
+      - p1
+      - p2
+      - gen_1
+      - gen_2
+      - gen_3
+      - gen_4
+      - gen_5
+      - veg_6
+      - veg_7
+      - veg_8
+      - veg_9
+      - veg_10
+    icon: mdi:leaf
+
+  chadd_pxpics_growth_stage:
+    name: CHADD PXPICS Growth Stage
+    options:
+      - vegetative
+      - flowering
+      - bulking
+      - harvest
+    icon: mdi:sprout
+  
+  chadd_pxpics_transpiration_method:
+    name: CHADD PXPICS Transpiration Method
+    options:
+      - estimated
+      - measured
+      - blended
+    icon: mdi:weather-windy
+
+  chadd_pxpics_transpiration_source:
+    name: CHADD PXPICS Transpiration Source
+    options:
+      - estimate
+      - measurement
+      - blend
+    icon: mdi:water-outline
+
+input_boolean:
+  chadd_pxpics_manual_override_enabled:
+    name: CHADD PXPICS Manual Override Enabled
+    icon: mdi:hand-extended
+
+  chadd_pxpics_dry_run_mode:
+    name: CHADD PXPICS Dry Run Mode
+    icon: mdi:test-tube
+
+  chadd_pxpics_skip_next_shot:
+    name: CHADD PXPICS Skip Next Shot
+    icon: mdi:skip-next
+
+  chadd_pxpics_fallback_alert_enabled:
+    name: CHADD PXPICS Fallback Alert Enabled
+    icon: mdi:bell-alert
+
+  chadd_pxpics_decision_log_enabled:
+    name: CHADD PXPICS Decision Log Enabled
+    icon: mdi:book-open-variant
+
+  chadd_pxpics_phase_auto_mode:
+    name: CHADD PXPICS Phase Auto Mode
+    icon: mdi:auto-fix
+
+  chadd_pxpics_transpiration_enabled:
+    name: CHADD PXPICS Transpiration Enabled
+    icon: mdi:water-outline
+
+input_number:
+  chadd_pxpics_intent:
+    name: CHADD PXPICS Intent
+    min: 1
+    max: 10
+    step: 1
+    mode: slider
+    icon: mdi:numeric
+  
+  chadd_pxpics_vwc_fc_ref:
+    name: CHADD PXPICS VWC FC REF
+    min: 1
+    max: 100
+    step: 1
+    mode: box
+    unit_of_measurement: "%"
+    icon: mdi:numeric
+
+  chadd_pxpics_intent_profile_index:
+    name: CHADD PXPICS Intent Profile Index
+    min: 1
+    max: 10
+    step: 1
+    mode: box
+    icon: mdi:format-list-numbered
+
+  chadd_pxpics_dryback_target:
+    name: CHADD PXPICS Dryback Target
+    min: 0
+    max: 100
+    step: 1
+    unit_of_measurement: "%"
+    mode: slider
+    icon: mdi:water-percent-alert
+
+  chadd_pxpics_vwc_target:
+    name: CHADD PXPICS VWC Target
+    min: 0
+    max: 100
+    step: 1
+    unit_of_measurement: "%"
+    mode: slider
+    icon: mdi:water-percent
+
+  chadd_pxpics_ec_target:
+    name: CHADD PXPICS EC Target
+    min: 0
+    max: 30000
+    step: 10
+    unit_of_measurement: "µS/cm"
+    mode: box
+    icon: mdi:flash
+
+  chadd_pxpics_ec_min:
+    name: CHADD PXPICS EC Min
+    min: 0
+    max: 30000
+    step: 10
+    unit_of_measurement: "µS/cm"
+    mode: box
+    icon: mdi:flash-alert
+
+  chadd_pxpics_ec_max:
+    name: CHADD PXPICS EC Max
+    min: 0
+    max: 30000
+    step: 10
+    unit_of_measurement: "µS/cm"
+    mode: box
+    icon: mdi:flash-alert
+
+  chadd_pxpics_osmotic_potential_target:
+    name: CHADD PXPICS Osmotic Potential Target
+    min: -2000
+    max: 0
+    step: 10
+    unit_of_measurement: "kPa"
+    mode: box
+    icon: mdi:alpha-o-box
+
+  chadd_pxpics_osmotic_potential_min:
+    name: CHADD PXPICS Osmotic Potential Min
+    min: -2000
+    max: 0
+    step: 10
+    unit_of_measurement: "kPa"
+    mode: box
+    icon: mdi:alpha-o-box-outline
+
+  chadd_pxpics_osmotic_potential_max:
+    name: CHADD PXPICS Osmotic Potential Max
+    min: -2000
+    max: 0
+    step: 10
+    unit_of_measurement: "kPa"
+    mode: box
+    icon: mdi:alpha-o-box-outline
+
+  chadd_pxpics_ec_kpa_per_ds:
+    name: CHADD PXPICS EC to kPa Factor
+    min: -100
+    max: 0
+    step: 1
+    unit_of_measurement: "kPa/dS/m"
+    mode: box
+    icon: mdi:calculator
+
+  chadd_pxpics_leaching_fraction_target:
+    name: CHADD PXPICS Leaching Fraction Target
+    min: 0
+    max: 100
+    step: 1
+    unit_of_measurement: "%"
+    mode: box
+    icon: mdi:water-percent
+
+  chadd_pxpics_drainage_target_pct:
+    name: CHADD PXPICS Drainage Target
+    min: 0
+    max: 100
+    step: 1
+    unit_of_measurement: "%"
+    mode: box
+    icon: mdi:cup-water
+
+  chadd_pxpics_dryback_target_pct:
+    name: CHADD PXPICS Dryback Target Pct
+    min: 0
+    max: 100
+    step: 1
+    unit_of_measurement: "%"
+    mode: box
+    icon: mdi:water-percent-alert
+
+  chadd_pxpics_reachability_score:
+    name: CHADD PXPICS Reachability Score
+    min: 0
+    max: 100
+    step: 1
+    mode: box
+    icon: mdi:chart-line
+
+  chadd_pxpics_canopy_temp_estimate:
+    name: CHADD PXPICS Canopy Temp Estimate
+    min: -10
+    max: 60
+    step: 0.1
+    unit_of_measurement: "°C"
+    mode: box
+    icon: mdi:thermometer
+
+  chadd_pxpics_vpd_estimate:
+    name: CHADD PXPICS VPD Estimate
+    min: 0
+    max: 10
+    step: 0.01
+    unit_of_measurement: "kPa"
+    mode: box
+    icon: mdi:weather-windy
+
+  chadd_pxpics_radiation_estimate:
+    name: CHADD PXPICS Radiation Estimate
+    min: 0
+    max: 3000
+    step: 1
+    unit_of_measurement: "W/m²"
+    mode: box
+    icon: mdi:white-balance-sunny
+
+  chadd_pxpics_wind_estimate:
+    name: CHADD PXPICS Wind Estimate
+    min: 0
+    max: 20
+    step: 0.01
+    unit_of_measurement: "m/s"
+    mode: box
+    icon: mdi:weather-windy
+
+  chadd_pxpics_stomata_leq_estimate:
+    name: CHADD PXPICS Stomata Conductance Estimate
+    min: 0
+    max: 2
+    step: 0.001
+    unit_of_measurement: "mol/m²/s"
+    mode: box
+    icon: mdi:leaf
+
+  chadd_pxpics_transpiration_rate_estimate:
+    name: CHADD PXPICS Transpiration Rate Estimate
+    min: 0
+    max: 10000
+    step: 1
+    unit_of_measurement: "ml/day"
+    mode: box
+    icon: mdi:water-minus
+
+  chadd_pxpics_transpiration_rate_measured:
+    name: CHADD PXPICS Transpiration Rate Measured
+    min: 0
+    max: 10000
+    step: 1
+    unit_of_measurement: "ml/day"
+    mode: box
+    icon: mdi:scale-balance
+
+  chadd_pxpics_transpiration_rate_blended:
+    name: CHADD PXPICS Transpiration Rate Blended
+    min: 0
+    max: 10000
+    step: 1
+    unit_of_measurement: "ml/day"
+    mode: box
+    icon: mdi:mix
+
+  chadd_pxpics_leaf_temp_target:
+    name: CHADD PXPICS Leaf Temp Target
+    min: -10
+    max: 60
+    step: 0.1
+    unit_of_measurement: "°C"
+    mode: box
+    icon: mdi:leaf
+
+  chadd_pxpics_leaf_temp_offset:
+    name: CHADD PXPICS Leaf Temp Offset
+    min: -20
+    max: 20
+    step: 0.1
+    unit_of_measurement: "°C"
+    mode: box
+    icon: mdi:thermometer-minus
+
+  chadd_pxpics_canopy_fraction:
+    name: CHADD PXPICS Canopy Fraction
+    min: 0
+    max: 1
+    step: 0.01
+    mode: box
+    icon: mdi:chart-bell-curve
+
+  chadd_pxpics_fractional_interception:
+    name: CHADD PXPICS Fractional Interception
+    min: 0
+    max: 1
+    step: 0.01
+    mode: box
+    icon: mdi:sun-wireless
+
+  chadd_pxpics_air_temp:
+    name: CHADD PXPICS Air Temperature
+    min: -10
+    max: 60
+    step: 0.1
+    unit_of_measurement: "°C"
+    mode: box
+    icon: mdi:thermometer
+
+  chadd_pxpics_leaf_width:
+    name: CHADD PXPICS Leaf Width
+    min: 0.1
+    max: 100
+    step: 0.1
+    unit_of_measurement: "cm"
+    mode: box
+    icon: mdi:ruler
+
+  chadd_pxpics_boundary_layer_conductance:
+    name: CHADD PXPICS Boundary Layer Conductance
+    min: 0
+    max: 10
+    step: 0.001
+    unit_of_measurement: "mol/m²/s"
+    mode: box
+    icon: mdi:fan
+
+  chadd_pxpics_plant_density:
+    name: CHADD PXPICS Plant Density
+    min: 0.1
+    max: 100
+    step: 0.1
+    unit_of_measurement: "plants/m²"
+    mode: box
+    icon: mdi:square-multiple
+
+  chadd_pxpics_shot_size_ml:
+    name: CHADD PXPICS Shot Size
+    min: 0
+    max: 10000
+    step: 5
+    unit_of_measurement: "ml"
+    mode: slider
+    icon: mdi:cup-water
+
+  chadd_pxpics_pump_time:
+    name: CHADD PXPICS Pump Time
+    min: 0
+    max: 3600
+    step: 1
+    unit_of_measurement: "s"
+    mode: slider
+    icon: mdi:pump
+
+  chadd_pxpics_dripper_count:
+    name: CHADD PXPICS Dripper Count
+    min: 1
+    max: 100
+    step: 1
+    mode: box
+    icon: mdi:pipe-valve
+
+  chadd_pxpics_dripper_flowrate:
+    name: CHADD PXPICS Dripper Flowrate
+    min: 0
+    max: 100
+    step: 0.001
+    unit_of_measurement: "ml/s"
+    mode: box
+    icon: mdi:water-pump
+
+  chadd_pxpics_field_capacity_estimate:
+    name: CHADD PXPICS Field Capacity Estimate
+    min: 0
+    max: 100
+    step: 1
+    unit_of_measurement: "%"
+    mode: slider
+    icon: mdi:chart-line
+
+  chadd_pxpics_min_time_between_shots:
+    name: CHADD PXPICS Min Time Between Shots
+    min: 0
+    max: 1440
+    step: 1
+    unit_of_measurement: "min"
+    mode: box
+    icon: mdi:timer-outline
+
+  chadd_pxpics_max_pump_time:
+    name: CHADD PXPICS Max Pump Time
+    min: 1
+    max: 3600
+    step: 1
+    unit_of_measurement: "s"
+    mode: box
+    icon: mdi:timer-cog
+
+  chadd_pxpics_lockout_after_manual_minutes:
+    name: CHADD PXPICS Manual Lockout
+    min: 0
+    max: 1440
+    step: 1
+    unit_of_measurement: "min"
+    mode: box
+    icon: mdi:hand-back-left
+
+  chadd_pxpics_sensor_timeout_minutes:
+    name: CHADD PXPICS Sensor Timeout
+    min: 1
+    max: 1440
+    step: 1
+    unit_of_measurement: "min"
+    mode: box
+    icon: mdi:signal-off
+
+  chadd_pxpics_fallback_shots_per_day:
+    name: CHADD PXPICS Fallback Shots/Day
+    min: 0
+    max: 20000
+    step: 1
+    mode: box
+    icon: mdi:backup-restore
+
+  chadd_pxpics_fallback_shots_today_limit:
+    name: CHADD PXPICS Fallback Daily Limit
+    min: 0
+    max: 20000
+    step: 1
+    mode: box
+    icon: mdi:counter
+
+  chadd_pxpics_fallback_shots_today:
+    name: CHADD PXPICS Fallback Today Count
+    min: 0
+    max: 200000
+    step: 1
+    mode: box
+    icon: mdi:counter
+
+  chadd_pxpics_irrigation_count_today:
+    name: CHADD PXPICS Irrigation Today Count
+    min: 0
+    max: 50
+    step: 1
+    mode: box
+    icon: mdi:counter
+
+  chadd_pxpics_max_irrigations_per_day:
+    name: CHADD PXPICS Max Irrigations/Day
+    min: 0
+    max: 20
+    step: 1
+    mode: box
+    icon: mdi:counter
+
+  chadd_pxpics_fallback_pump_time:
+    name: CHADD PXPICS Fallback Pump Time
+    min: 0
+    max: 300
+    step: 1
+    unit_of_measurement: "s"
+    mode: box
+    icon: mdi:pump-off
+
+  chadd_pxpics_fallback_alert_period_minutes:
+    name: CHADD PXPICS Fallback Alert Period
+    min: 5
+    max: 1440
+    step: 1
+    unit_of_measurement: "min"
+    mode: box
+    icon: mdi:bell-alert-outline
+
+  chadd_pxpics_p2_hold_minutes:
+    name: CHADD PXPICS P2 Hold Minutes
+    min: 0
+    max: 480
+    step: 1
+    unit_of_measurement: "min"
+    mode: box
+    icon: mdi:pause-circle
+
+  chadd_pxpics_window_start_minutes:
+    name: CHADD PXPICS Window Start Minutes
+    min: 0
+    max: 1440
+    step: 1
+    unit_of_measurement: "min"
+    mode: box
+    icon: mdi:clock-start
+
+  chadd_pxpics_window_end_minutes:
+    name: CHADD PXPICS Window End Minutes
+    min: 0
+    max: 1440
+    step: 1
+    unit_of_measurement: "min"
+    mode: box
+    icon: mdi:clock-end
+
+  chadd_pxpics_gen_dryback_target:
+    name: CHADD PXPICS GEN Dryback Target
+    min: 0
+    max: 100
+    step: 1
+    unit_of_measurement: "%"
+    mode: box
+    icon: mdi:arrow-down-bold
+
+  chadd_pxpics_veg_dryback_target:
+    name: CHADD PXPICS VEG Dryback Target
+    min: 0
+    max: 100
+    step: 1
+    unit_of_measurement: "%"
+    mode: box
+    icon: mdi:arrow-up-bold
+
+  chadd_pxpics_gen_shot_size_ml:
+    name: CHADD PXPICS GEN Shot Size
+    min: 0
+    max: 10000
+    step: 5
+    unit_of_measurement: "ml"
+    mode: box
+    icon: mdi:cup-water-outline
+
+  chadd_pxpics_veg_shot_size_ml:
+    name: CHADD PXPICS VEG Shot Size
+    min: 0
+    max: 10000
+    step: 5
+    unit_of_measurement: "ml"
+    mode: box
+    icon: mdi:cup-water
+
+  chadd_pxpics_gen_max_irrigations_per_day:
+    name: CHADD PXPICS GEN Max Irrigations/Day
+    min: 0
+    max: 20
+    step: 1
+    mode: box
+    icon: mdi:counter
+
+  chadd_pxpics_veg_max_irrigations_per_day:
+    name: CHADD PXPICS VEG Max Irrigations/Day
+    min: 0
+    max: 20
+    step: 1
+    mode: box
+    icon: mdi:counter
+
+  chadd_pxpics_value_sanity_vwc_min:
+    name: CHADD PXPICS VWC Min Sanity
+    min: 0
+    max: 100
+    step: 1
+    unit_of_measurement: "%"
+    mode: box
+    icon: mdi:arrow-down-bold
+
+  chadd_pxpics_value_sanity_vwc_max:
+    name: CHADD PXPICS VWC Max Sanity
+    min: 0
+    max: 100
+    step: 1
+    unit_of_measurement: "%"
+    mode: box
+    icon: mdi:arrow-up-bold
+
+  chadd_pxpics_value_sanity_ec_min:
+    name: CHADD PXPICS EC Min Sanity
+    min: 0
+    max: 20000
+    step: 50
+    unit_of_measurement: "µS/cm"
+    mode: box
+    icon: mdi:arrow-down-bold
+
+  chadd_pxpics_value_sanity_ec_max:
+    name: CHADD PXPICS EC Max Sanity
+    min: 0
+    max: 20000
+    step: 50
+    unit_of_measurement: "µS/cm"
+    mode: box
+    icon: mdi:arrow-up-bold
+
+  chadd_pxpics_catch_test_flow_rate:
+    name: CHADD PXPICS Catch Test Flow Rate
+    min: 0
+    max: 100
+    step: 0.001
+    unit_of_measurement: "ml/s"
+    mode: box
+    icon: mdi:flask-outline
+
+input_boolean:
+  chadd_pxpics_manual_override_enabled:
+    name: CHADD PXPICS Manual Override Enabled
+    icon: mdi:hand-extended
+
+  chadd_pxpics_dry_run_mode:
+    name: CHADD PXPICS Dry Run Mode
+    icon: mdi:test-tube
+
+  chadd_pxpics_skip_next_shot:
+    name: CHADD PXPICS Skip Next Shot
+    icon: mdi:skip-next
+
+  chadd_pxpics_fallback_alert_enabled:
+    name: CHADD PXPICS Fallback Alert Enabled
+    icon: mdi:bell-alert
+
+  chadd_pxpics_decision_log_enabled:
+    name: CHADD PXPICS Decision Log Enabled
+    icon: mdi:book-open-variant
+
+  chadd_pxpics_phase_auto_mode:
+    name: CHADD PXPICS Phase Auto Mode
+    icon: mdi:auto-fix
+
+  chadd_pxpics_transpiration_enabled:
+    name: CHADD PXPICS Transpiration Enabled
+    icon: mdi:water-outline
+
+input_button:
+  chadd_pxpics_manual_run_now:
+    name: CHADD PXPICS Manual Run Now
+    icon: mdi:play-circle-outline
+
+input_text:
+  chadd_pxpics_last_blocker_reason:
+    name: CHADD PXPICS Last Blocker Reason
+    max: 255
+
+  chadd_pxpics_mqtt_base_topic:
+    name: CHADD PXPICS MQTT Base Topic
+    initial: grow/CHADD_PXPICS
+    max: 100
+
+  chadd_pxpics_zone_name:
+    name: CHADD PXPICS Zone Name
+    initial: zone_1
+    max: 50
+
+  chadd_pxpics_current_profile_name:
+    name: CHADD PXPICS Current Profile Name
+    initial: default
+    max: 100
+
+  chadd_pxpics_transpiration_formula:
+    name: CHADD PXPICS Transpiration Formula
+    initial: penman_leaf_balance
+    max: 100
+
+input_datetime:
+  chadd_pxpics_last_irrigation:
+    name: CHADD PXPICS Last Irrigation
+    has_date: true
+    has_time: true
+
+  chadd_pxpics_last_irrigation_of_day:
+    name: CHADD PXPICS Last Irrigation Of Day
+    has_date: true
+    has_time: true
+
+  chadd_pxpics_calibration_date:
+    name: CHADD PXPICS Calibration Date
+    has_date: true
+    has_time: false
+
+  chadd_pxpics_phase_p0_start:
+    name: CHADD PXPICS Phase P0 Start
+    has_date: false
+    has_time: true
+
+  chadd_pxpics_phase_p0_end:
+    name: CHADD PXPICS Phase P0 End
+    has_date: false
+    has_time: true
+
+  chadd_pxpics_phase_p1_start:
+    name: CHADD PXPICS Phase P1 Start
+    has_date: false
+    has_time: true
+
+  chadd_pxpics_phase_p1_end:
+    name: CHADD PXPICS Phase P1 End
+    has_date: false
+    has_time: true
+
+  chadd_pxpics_phase_p2_start:
+    name: CHADD PXPICS Phase P2 Start
+    has_date: false
+    has_time: true
+
+  chadd_pxpics_phase_p2_end:
+    name: CHADD PXPICS Phase P2 End
+    has_date: false
+    has_time: true
