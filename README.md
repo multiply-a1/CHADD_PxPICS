@@ -35,6 +35,10 @@
   <img src="https://github.com/multiply-a1/CHADD_PxPICS/blob/main/images/dxd-station-01.jpg" alt="dxd_prototype" width="30%" />
 </p>
 
+
+# [Hier gehts zum deutschen Guide](https://github.com/multiply-a1/CHADD_PxPICS/blob/main/docs/userguide-de.md)
+
+
 ## 💡 Table of Contents
 
 - [Overview](#-overview)
@@ -160,6 +164,8 @@ There is a wide range of sensors available; in general, every sensor should at l
 For startes i also included a [5in1](https://github.com/multiply-a1/CHADD_PxPICS/tree/main/iot/AtomLiteS3-Sensor-Emulator_5in1_v3.5) and a [22in1 Sensor Emulator](https://github.com/multiply-a1/CHADD_PxPICS/tree/main/iot/AtomLiteS3_Sensor_Emulator_22in1_8h_v4.2) based on ChillDivisions Sketch ([Backup](https://github.com/multiply-a1/CHADD_PxPICS/tree/main/iot/AtomLite-SDI12-Teros12_Wifi_Sensor_Original_2026-ChillDivision)) to setup CHADD while waiting on the real life sensor. Those were tested on the AtomLite S3.
 
 An arduino uno r4 wifi sketch for EC/TDS is also ready and working. you can find it in [here](https://github.com/multiply-a1/CHADD_PxPICS/tree/main/iot/uno-r4-water-tds-v3.2) This should get the PH/ORP/TEMP upgrade very soon. It is used for the tank and dxd stations in different configurations. 
+
+[arduino uno r4 water tds v6.0.3](https://github.com/multiply-a1/CHADD_PxPICS/tree/main/iot/uno-r4-water-tds-v6.0.3) now comes with a big sensor suite: TDS, EC, TEMP, PH, TANK Level .. ORP very soon....
 
 <p align="center">
   <img src="https://github.com/multiply-a1/CHADD_PxPICS/blob/main/images/dxd-station-03-tds_closeup.jpg" alt="dxd_prototype" width="40%" />
