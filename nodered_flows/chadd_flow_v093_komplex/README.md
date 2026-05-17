@@ -2,6 +2,10 @@
 
 Node-RED flow for Home Assistant based irrigation control using substrate sensor data, Home Assistant helpers as configuration storage, and a small decision engine that calculates whether irrigation should run, how large a shot should be, and how long the pump should stay on.[cite:444][cite:389]
 
+<p align="center">
+  <img src="https://github.com/multiply-a1/CHADD_PxPICS/blob/main/nodered_flows/chadd_flow_v093_komplex/flow093.jpg" alt="flow093" width="100%" />
+</p>
+
 ## Overview
 
 This flow is built around the tab **CHADD PXPICS Irrigation v0.9** and is described in the flow metadata as a refactored version that uses Home Assistant helpers as the source of truth.[cite:444] A repeating inject node starts the decision cycle every 3 minutes, while a separate daily reset chain clears counters and status helpers at 00:05.[cite:444]
