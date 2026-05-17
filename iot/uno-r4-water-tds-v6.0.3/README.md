@@ -2,6 +2,12 @@
 
 Firmware for an Arduino UNO R4 WiFi-based water monitoring node with MQTT auto-discovery for Home Assistant, covering EC, pH, DS18B20 water temperature, analog and digital rain sensing, three ultrasonic tank level channels, and the onboard 12x8 LED matrix aswell as persistent configuration data[cite:495][cite:479][cite:449]
 
+<p align="center">
+  <img src="https://github.com/multiply-a1/CHADD_PxPICS/blob/main/iot/uno-r4-water-tds-v6.0.3/controls.jpg" alt="mqtt controls" width="30%" />
+  <img src="https://github.com/multiply-a1/CHADD_PxPICS/blob/main/iot/uno-r4-water-tds-v6.0.3/sensor.jpg" alt="sensors" width="30%" />
+  <img src="https://github.com/multiply-a1/CHADD_PxPICS/blob/main/iot/uno-r4-water-tds-v6.0.3/eeprom-saved.jpg" alt="eeprom" width="30%" />
+</p>
+
 ## Features
 
 ### Sensors
