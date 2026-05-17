@@ -159,16 +159,28 @@ homeassistant:
 
 [/iot](https://github.com/multiply-a1/CHADD_PxPICS/tree/main/iot)<br>
 
-There is a wide range of sensors available; in general, every sensor should at least provide a rough reference value, but as of now the rule is often still: the more expensive, the more accurate. For this project, [BGT SZ (SDI-12)](https://www.alibaba.com/x/1lAXPBk?ck=pdp), [TEROS 12 (SDI-12)](https://metergroup.com/products/teros-12/), [Andratek (RS485)](https://www.antratek.de/moisture-ec-temperature-sensor-for-soil-substrate-rockwool-cocopeat-modbus-rtu-rs485), and SlapSense were identified as relevant options. RS485 sensors require a Waveshare USB-to-RS485 converter; in the described setup, a BGT SZ (SDI-12) is connected wirelessly to the Pi via an [M5Stack ATOM Lite](https://docs.m5stack.com/en/core/ATOM%20Lite) and [ChillDivision Sketch](https://github.com/Chill-Division/sdi12-substrate-sensor?tab=readme-ov-file).
+### Substrate Sensors
 
-For startes i also included a [5in1](https://github.com/multiply-a1/CHADD_PxPICS/tree/main/iot/AtomLiteS3-Sensor-Emulator_5in1_v3.5) and a [22in1 Sensor Emulator](https://github.com/multiply-a1/CHADD_PxPICS/tree/main/iot/AtomLiteS3_Sensor_Emulator_22in1_8h_v4.2) based on ChillDivisions Sketch ([Backup](https://github.com/multiply-a1/CHADD_PxPICS/tree/main/iot/AtomLite-SDI12-Teros12_Wifi_Sensor_Original_2026-ChillDivision)) to setup CHADD while waiting on the real life sensor. Those were tested on the AtomLite S3.
+There is a wide range of sensors available; in general, every sensor should at least provide a rough reference value, but as of now the rule is often still: the more expensive, the more accurate. For this project, <br>[BGT SZ (SDI-12)](https://www.alibaba.com/x/1lAXPBk?ck=pdp)<br>[TEROS 12 (SDI-12)](https://metergroup.com/products/teros-12/)<br>[Andratek (RS485)](https://www.antratek.de/moisture-ec-temperature-sensor-for-soil-substrate-rockwool-cocopeat-modbus-rtu-rs485)<br> were identified as relevant options. RS485 sensors require a Waveshare USB-to-RS485 converter;<br> in the described setup, a BGT SZ (SDI-12) is connected wirelessly to the Pi via an [M5Stack ATOM Lite](https://docs.m5stack.com/en/core/ATOM%20Lite) and [ChillDivision Sketch](https://github.com/Chill-Division/sdi12-substrate-sensor?tab=readme-ov-file).
 
-An arduino uno r4 wifi sketch for EC/TDS is also ready and working. you can find it in [here](https://github.com/multiply-a1/CHADD_PxPICS/tree/main/iot/uno-r4-water-tds-v3.2) This should get the PH/ORP/TEMP upgrade very soon. It is used for the tank and dxd stations in different configurations. 
+### Sensor Emulator / Simulator (MQTT)
+
+For startes i also included a <br>[5in1](https://github.com/multiply-a1/CHADD_PxPICS/tree/main/iot/AtomLiteS3-Sensor-Emulator_5in1_v3.5) and a <br>[22in1 Sensor Emulator](https://github.com/multiply-a1/CHADD_PxPICS/tree/main/iot/AtomLiteS3_Sensor_Emulator_22in1_8h_v4.2)<br>based on ChillDivisions Sketch ([Backup](https://github.com/multiply-a1/CHADD_PxPICS/tree/main/iot/AtomLite-SDI12-Teros12_Wifi_Sensor_Original_2026-ChillDivision)) to setup CHADD while waiting on the real life sensor. Those were tested on the AtomLite S3. i still have some ideas to increase usefullness for them so stay tunes...
+
+<p align="center">
+  <img src="https://github.com/multiply-a1/CHADD_PxPICS/blob/main/iot/AtomLiteS3_Sensor_Emulator_22in1_8h_v4.2/22in1-emu-v4.2.jpg" alt="22in1" width="30%" />
+  <img src="https://github.com/multiply-a1/CHADD_PxPICS/blob/main/iot/AtomLiteS3-Sensor-Emulator_5in1_v3.5/5in1emu-v3.5.jpg" alt="5in1" width="30%" />
+</p>
+
+### Arduino UNO R4 Wifi Sensor Suite
+
+An arduino uno r4 wifi sketch for EC/TDS is also ready and working. you can find version 3.2 [here](https://github.com/multiply-a1/CHADD_PxPICS/tree/main/iot/uno-r4-water-tds-v3.2) this version is very basic, please check the latest version: 
 
 [arduino uno r4 water tds v6.0.3](https://github.com/multiply-a1/CHADD_PxPICS/tree/main/iot/uno-r4-water-tds-v6.0.3) now comes with a big sensor suite: TDS, EC, TEMP, PH, TANK Level .. ORP very soon....
 
 <p align="center">
-  <img src="https://github.com/multiply-a1/CHADD_PxPICS/blob/main/images/dxd-station-03-tds_closeup.jpg" alt="dxd_prototype" width="40%" />
+  <img src="https://github.com/multiply-a1/CHADD_PxPICS/blob/main/images/dxd-station-03-tds_closeup.jpg" alt="dxd_prototype" width="30%" />
+  <img src="https://github.com/multiply-a1/CHADD_PxPICS/blob/main/iot/uno-r4-water-tds-v6.0.3/sensor.jpg" alt="603" width="50%" />
 </p>
 
 ## 💧 Tank System
